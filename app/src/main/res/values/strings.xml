@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ToDoDoT</string>
+
+    <string name="all_save">Save</string>
+    <string name="all_undo">Undo</string>
+
+    <string name="fab_add_task">Add Task</string>
+    <string name="header_title_checked_todos">Completed</string>
+
+    <string name="hint_task_name">New task</string>
+    <string name="hint_task_note">Description</string>
+    <string name="massage_no_todos">You don\'t have any todos!</string>
+
+    <string name="dialog_delete_checked_todos_title">Delete all completed tasks?</string>
+
+
+
+</resources>

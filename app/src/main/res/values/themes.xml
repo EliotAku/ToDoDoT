@@ -1,0 +1,59 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Light Theme -->
+    <style name="Theme.ToDoDoT" parent="Base.Theme.ToDoDoT">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar">true</item>
+
+    </style>
+
+    <!-- Base Application Theme -->
+    <style name="Base.Theme.ToDoDoT" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">#00FFFFFF</item>
+        <!-- Customize your theme here. -->
+        <item name="bottomSheetDialogTheme">@style/ModalBottomSheetDialog</item>
+        <item name="imageButtonStyle">@style/Widget.App.ImageButton</item>
+
+    </style>
+
+    <style name="Theme.ToDoDot.Starting" parent="Theme.SplashScreen">
+        // Set the splash screen background, animated icon, and animation duration.
+        <item name="windowSplashScreenBackground">?android:attr/colorBackground</item>
+
+        // Use windowSplashScreenAnimatedIcon to add either a drawable or an
+        // animated drawable. One of these is required.
+        <item name="windowSplashScreenAnimatedIcon">@drawable/avd_launcher</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>  # Required for
+                                                                      # animated icons
+
+        // Set the theme of the Activity that directly follows your splash screen.
+        <item name="postSplashScreenTheme">@style/Theme.ToDoDoT</item>  # Required.
+    </style>
+
+
+    <style name="ModalBottomSheet" parent="Widget.Material3.BottomSheet.Modal">
+        <!-- Apply attributes here -->
+        <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
+
+    </style>
+
+    <style name="ModalBottomSheetDialog"
+        parent="ThemeOverlay.Material3.DayNight.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ModalBottomSheet</item>
+    </style>
+
+    <style name="Widget.App.ImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:padding">2dp</item>
+        <item name="android:background">?attr/actionBarItemBackground</item>
+    </style>
+
+</resources>

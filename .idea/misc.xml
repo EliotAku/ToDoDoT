@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../Library/Android/sdk/platforms/android-31/data/res/drawable/control_background_40dp_material.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-night/shape_rounded.xml" value="0.183" />
+        <entry key="app/src/main/res/drawable-v24/avd_launcher.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/avd_arrow.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/handle_bottom_sheet.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_more_vert.xml" value="0.183" />
+        <entry key="app/src/main/res/drawable/selector_checkbox_circle.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/shape_rounded.xml" value="0.183" />
+        <entry key="app/src/main/res/layout-night/view_bottom_sheet_handle.xml" value="1.9858713785807294" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.31768035888671875" />
+        <entry key="app/src/main/res/layout/fragment_add_todo_dialog_list_dialog.xml" value="0.1828774062816616" />
+        <entry key="app/src/main/res/layout/fragment_bottom_sheet_add_todo.xml" value="0.20705521472392638" />
+        <entry key="app/src/main/res/layout/fragment_bottom_sheet_todo.xml" value="0.5940959409594095" />
+        <entry key="app/src/main/res/layout/fragment_modal_bottom_sheet_add_todo.xml" value="0.4005410014719203" />
+        <entry key="app/src/main/res/layout/item_todo.xml" value="0.2580298839197446" />
+        <entry key="app/src/main/res/layout/view_bottom_sheet_handle.xml" value="0.5265584088753963" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="app/src/main/res/xml/animator_rotation.xml" value="0.17592592592592593" />
+        <entry key="app/src/main/res/xml/checkbox_selector.xml" value="0.13858695652173914" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="corretto-1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

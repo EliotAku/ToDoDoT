@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/Widget.Material3.CardView.Elevated"
+    android:background="?attr/selectableItemBackground"
+    android:focusable="true"
+    android:clickable="true"
+    android:longClickable="true"
+    android:layout_marginHorizontal="@dimen/padding_large"
+    android:layout_marginVertical="@dimen/list_item_spacing_half">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_small">
+
+        <CheckBox
+            android:id="@+id/check_box"
+            style="@style/View.App.CheckCircle"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_item_todo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/text_view_note"
+            app:layout_constraintStart_toEndOf="@+id/check_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Todo title" />
+
+        <TextView
+            android:id="@+id/text_view_note"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:alpha=".40"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/text_view_item_todo"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

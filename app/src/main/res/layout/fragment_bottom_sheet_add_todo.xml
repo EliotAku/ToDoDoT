@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="100dp"
+    android:orientation="vertical"
+    tools:context=".AddTodoDialogFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_medium">
+
+        <ImageButton
+            android:id="@+id/button_left"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/ic_close"
+            android:background="?attr/actionBarItemBackground"
+            android:layout_gravity="center_horizontal|start"/>
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            style="@style/Widget.Material3.Button"
+            android:text="@string/all_save"
+            android:layout_marginTop="-4dp"
+            android:layout_gravity="center_horizontal|end"/>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/list_item_spacing_half"
+        android:paddingHorizontal="@dimen/padding_large">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_task_name"
+            style="@style/View.App.EditText"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:paddingVertical="@dimen/list_item_spacing_half" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_task_note"
+            style="@style/View.App.EditText"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:paddingVertical="@dimen/list_item_spacing_half"
+            android:layout_below="@id/edit_text_title" />
+
+    </RelativeLayout>
+
+</LinearLayout>

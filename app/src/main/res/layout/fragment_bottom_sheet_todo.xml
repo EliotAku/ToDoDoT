@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="150dp"
+    android:orientation="vertical"
+    tools:context=".TodoDialogFragment">
+
+    <include android:id="@+id/handle"
+        layout="@layout/view_bottom_sheet_handle"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_large">
+
+        <ImageButton
+            android:id="@+id/image_button_check_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_circle_checked"
+            android:layout_marginEnd="@dimen/padding_large"
+            android:layout_alignTop="@id/text_view_todo_title"
+            android:layout_alignParentStart="true" />
+
+        <ImageButton
+            android:id="@+id/image_button_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_trash"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:id="@+id/text_view_todo_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/View.App.EditText"
+
+            tools:text="Todo Title"
+            android:hint="@string/hint_task_name"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/image_button_check_circle"
+            android:layout_toStartOf="@id/image_button_delete" />
+
+        <EditText
+            android:id="@+id/text_view_todo_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/View.App.EditText"
+            tools:text="Todo Note"
+            android:hint="@string/hint_task_note"
+            android:layout_below="@id/text_view_todo_title"
+            android:layout_alignStart="@id/text_view_todo_title" />
+
+        <!--<ImageView
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/text_view_todo_note"
+            android:layout_marginVertical="8dp"
+            android:src="@drawable/shape_rounded"
+            android:importantForAccessibility="no" />-->
+
+    </RelativeLayout>
+
+</LinearLayout>
