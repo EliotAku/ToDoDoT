@@ -14,7 +14,8 @@
     <!-- Custom Views -->
 
     <style name="View.App.CheckCircle" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/selector_checkbox_circle</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableStart">@drawable/selector_checkbox_circle</item>
         <!--<item name="android:background">@android:color/transparent</item>-->
     </style>
 
