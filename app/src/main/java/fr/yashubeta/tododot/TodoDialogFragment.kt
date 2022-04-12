@@ -68,10 +68,7 @@ class TodoDialogFragment(
     }
 
     private fun setCheckCircle(){
-        if (todo.isChecked)
-            binding.imageButtonCheckCircle.setImageResource(R.drawable.ic_check_circle_checked)
-        else
-            binding.imageButtonCheckCircle.setImageResource(R.drawable.ic_check_circle_unchecked)
+        binding.imageButtonCheckCircle.isChecked = todo.isChecked
     }
 
 }

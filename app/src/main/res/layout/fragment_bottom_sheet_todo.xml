@@ -8,53 +8,55 @@
     android:orientation="vertical"
     tools:context=".TodoDialogFragment">
 
-    <include android:id="@+id/handle"
-        layout="@layout/view_bottom_sheet_handle"/>
+    <include
+        android:id="@+id/handle"
+        layout="@layout/view_bottom_sheet_handle" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/padding_large">
 
-        <ImageButton
+        <fr.yashubeta.tododot.view.CheckCircle
             android:id="@+id/image_button_check_circle"
+            style="@style/Widget.ToDoDoT.CheckCircle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_check_circle_checked"
-            android:layout_marginEnd="@dimen/padding_large"
             android:layout_alignTop="@id/text_view_todo_title"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="@dimen/padding_large"
+            android:padding="@dimen/padding_small" />
 
         <ImageButton
             android:id="@+id/image_button_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_trash"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_trash" />
 
         <EditText
             android:id="@+id/text_view_todo_title"
+            style="@style/View.App.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/View.App.EditText"
-
-            tools:text="Todo Title"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@id/image_button_delete"
+            android:layout_toEndOf="@id/image_button_check_circle"
             android:hint="@string/hint_task_name"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@id/image_button_check_circle"
-            android:layout_toStartOf="@id/image_button_delete" />
+            tools:text="Todo Title" />
 
         <EditText
             android:id="@+id/text_view_todo_note"
+            style="@style/View.App.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/View.App.EditText"
-            tools:text="Todo Note"
-            android:hint="@string/hint_task_note"
             android:layout_below="@id/text_view_todo_title"
-            android:layout_alignStart="@id/text_view_todo_title" />
+            android:layout_alignStart="@id/text_view_todo_title"
+            android:layout_alignEnd="@id/text_view_todo_title"
+            android:hint="@string/hint_task_note"
+            tools:text="Todo Note" />
 
         <!--<ImageView
             android:id="@+id/divider"
