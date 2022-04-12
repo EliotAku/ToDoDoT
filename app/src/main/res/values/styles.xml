@@ -19,6 +19,10 @@
         <!--<item name="android:background">@android:color/transparent</item>-->
     </style>
 
+    <style name="Widget.ToDoDoT.CheckCircle" parent="Widget.App.ImageButton">
+        <item name="android:src">@drawable/selector_checkbox_circle</item>
+    </style>
+
 
     <!-- Shape Appearance -->
 
