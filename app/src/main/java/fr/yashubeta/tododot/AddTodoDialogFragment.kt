@@ -6,12 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fr.yashubeta.tododot.database.Todo
 import fr.yashubeta.tododot.databinding.FragmentBottomSheetAddTodoBinding
 import kotlinx.coroutines.Dispatchers.IO
@@ -39,6 +38,8 @@ class AddTodoDialogFragment : BottomSheetDialogFragment() {
         binding.editTextTitle.requestFocus()
         requireDialog().window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
+        setIfButtonSaveEnable()
+
         return binding.root
     }
 
@@ -48,17 +49,21 @@ class AddTodoDialogFragment : BottomSheetDialogFragment() {
         binding.buttonLeft.setOnClickListener { dismiss() }
 
         binding.buttonSave.setOnClickListener {
-            if (binding.editTextTitle.text.isNullOrEmpty()){
-                Toast.makeText(
-                    context, "You need a title for adding a To-Do", Toast.LENGTH_SHORT)
-                    .show()
-            }else {
+            if (!binding.editTextTitle.text.isNullOrEmpty()){
                 val todoTitle = binding.editTextTitle.text.toString()
                 val todoNote = binding.editTextNote.text.toString()
                 addTodo(todoTitle, todoNote)
             }
         }
 
+        binding.editTextTitle.doOnTextChanged { _, _, _, _ ->
+            setIfButtonSaveEnable()
+        }
+
+    }
+
+    private fun setIfButtonSaveEnable() {
+        binding.buttonSave.isEnabled = !binding.editTextTitle.text.isNullOrEmpty()
     }
 
     private fun addTodo(title: String, note: String) {
