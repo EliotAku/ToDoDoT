@@ -10,7 +10,7 @@
     android:focusable="true"
     android:clickable="true"
     android:longClickable="true"
-    android:layout_marginHorizontal="@dimen/padding_large"
+    android:layout_marginHorizontal="@dimen/spacing_large"
     android:layout_marginVertical="@dimen/list_item_spacing_half">
 
     <LinearLayout
@@ -22,14 +22,14 @@
             android:id="@+id/check_box"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:padding="@dimen/padding_medium"
+            android:padding="@dimen/spacing_medium"
             style="@style/Widget.ToDoDoT.CheckCircle"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/padding_medium"
-            android:paddingEnd="@dimen/padding_medium"
+            android:paddingVertical="@dimen/spacing_medium"
+            android:paddingEnd="@dimen/spacing_medium"
             tools:ignore="RtlSymmetry">
 
             <TextView

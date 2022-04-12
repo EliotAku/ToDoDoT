@@ -38,8 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/list_item_spacing_half"
-            android:layout_marginTop="@dimen/padding_medium"
-            android:layout_marginHorizontal="@dimen/padding_large">
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginHorizontal="@dimen/spacing_large">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="@dimen/padding_medium">
+                    android:paddingHorizontal="@dimen/spacing_medium">
                     <TextView
                         android:id="@+id/text_view_hide"
                         android:layout_width="0dp"
@@ -63,7 +63,7 @@
                         android:id="@+id/text_view_checked_number"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="@dimen/padding_small"
+                        android:layout_marginEnd="@dimen/spacing_small"
                         android:gravity="center_vertical"/>
                     <ImageButton
                         android:id="@+id/button_delete_checked_todos"

@@ -13,7 +13,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_medium">
+        android:padding="@dimen/spacing_medium">
 
         <ImageButton
             android:id="@+id/button_left"
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/list_item_spacing_half"
-        android:paddingHorizontal="@dimen/padding_large">
+        android:paddingHorizontal="@dimen/spacing_large">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_text_title"
