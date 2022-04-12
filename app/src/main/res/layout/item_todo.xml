@@ -15,16 +15,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding_small">
+        android:layout_height="wrap_content">
 
         <CheckBox
             android:id="@+id/check_box"
             android:layout_width="40dp"
             android:layout_height="0dp"
-            android:minHeight="40dp"
             style="@style/View.App.CheckCircle"
             android:padding="@dimen/padding_medium"
+            app:layout_constraintHeight_min="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -45,7 +44,7 @@
             android:id="@+id/text_view_note"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:visibility="gone"
             android:alpha=".40"
             tools:text="Description"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
