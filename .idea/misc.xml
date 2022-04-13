@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/drawable/ic_check_circle_unchecked.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_more_vert.xml" value="0.183" />
         <entry key="app/src/main/res/drawable/selector_checkbox_circle.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/shape_rounded.xml" value="0.183" />
@@ -26,6 +27,7 @@
         <entry key="app/src/main/res/layout/fragment_modal_bottom_sheet_add_todo.xml" value="0.4005410014719203" />
         <entry key="app/src/main/res/layout/item_todo.xml" value="0.1944792973651192" />
         <entry key="app/src/main/res/layout/view_bottom_sheet_handle.xml" value="0.5265584088753963" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="app/src/main/res/xml/animator_rotation.xml" value="0.17592592592592593" />
         <entry key="app/src/main/res/xml/checkbox_selector.xml" value="0.13858695652173914" />
