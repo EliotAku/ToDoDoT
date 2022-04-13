@@ -36,10 +36,13 @@ class MainActivity : AppCompatActivity() {
 
         // -- ADAPTERS -- \\
         val uncheckedAdapter = TodoAdapter(this, viewModel)
-        binding.views.recyclerViewUncheckedTodos.adapter = uncheckedAdapter
+        binding.views.recyclerViewUncheckedTodos.apply {
+            adapter = uncheckedAdapter
+            edgeEffectFactory = BounceEdgeEffectFactory()
+        }
 
         val checkedAdapter = TodoAdapter(this, viewModel, true)
-        with(binding.views.recyclerViewCheckedTodos) {
+        binding.views.recyclerViewCheckedTodos.apply {
             adapter = checkedAdapter
             visibility = View.GONE
             binding.views.layoutHeaderCheckedTodos.setOnClickListener {
@@ -100,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setTitle(resources.getString(R.string.dialog_delete_checked_todos_title))
             .setNegativeButton(resources.getString(android.R.string.cancel)) { _, _ -> }
-            .setPositiveButton(resources.getString(android.R.string.ok)) { dialog, which ->
+            .setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
                 viewModel.deleteTodos(checkedTodos)
             }
             .show()
