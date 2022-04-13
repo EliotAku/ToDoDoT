@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fr.yashubeta.tododot.database.Todo
 import fr.yashubeta.tododot.databinding.ItemTodoBinding
@@ -15,13 +17,9 @@ class TodoAdapter(
     private val activity: MainActivity,
     private val viewModel: MainViewModel,
     private val isCheckedAdapter: Boolean = false
-): RecyclerView.Adapter<TodoAdapter.ItemViewHolder>() {
-
-    private var dataset = mutableListOf<Todo>()
+): ListAdapter<Todo, TodoAdapter.ItemViewHolder>(TodoDiffCallBack) {
 
     class ItemViewHolder(val binding: ItemTodoBinding) : RecyclerView.ViewHolder(binding.root)
-
-    override fun getItemCount(): Int = dataset.size
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
@@ -35,7 +33,7 @@ class TodoAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, holderPosition: Int) {
-        val item = dataset[holderPosition]
+        val item = getItem(holderPosition)
         // Update position if it's wrong
         // (TODO: A optimiser car fait une double update de la base de donnée)
         if (item.position != holderPosition)
@@ -74,10 +72,20 @@ class TodoAdapter(
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    /*@SuppressLint("NotifydatasetChanged")
     fun submitList(todos: List<Todo>) {
         dataset = todos.toMutableList()
-        notifyDataSetChanged()
+        notifydatasetChanged()
+    }*/
+
+    object TodoDiffCallBack : DiffUtil.ItemCallback<Todo>() {
+        override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
+            return oldItem.todoId == newItem.todoId
+        }
+
+        override fun areContentsTheSame(oldItem: Todo, newItem: Todo): Boolean {
+            return oldItem == newItem
+        }
     }
 
     private val itemTouchHelper by lazy {
@@ -88,9 +96,9 @@ class TodoAdapter(
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
+                val dataset = currentList.toMutableList()
                 val fromPosition = viewHolder.bindingAdapterPosition
                 val toPosition = target.bindingAdapterPosition
-
                 if (fromPosition < toPosition) {
                     for (i in fromPosition until toPosition) {
                         Collections.swap(dataset, i, i + 1)
@@ -108,7 +116,7 @@ class TodoAdapter(
                         dataset[i-1].position = position1
                     }
                 }
-                this@TodoAdapter.notifyItemMoved(fromPosition, toPosition)
+                submitList(dataset)
                 return true
             }
 
@@ -116,7 +124,7 @@ class TodoAdapter(
 
             override fun clearView(recyclerView: RecyclerView, holder: RecyclerView.ViewHolder) {
                 super.clearView(recyclerView, holder)
-                viewModel.updateTodos(dataset)
+                viewModel.updateTodos(currentList)
             }
         }
         ItemTouchHelper(itemTouchCallback)
