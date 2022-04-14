@@ -34,23 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolBar)
 
-        // -- ADAPTERS -- \\
-        /*val uncheckedAdapter = TodoAdapter(this, viewModel)
-        binding.views.recyclerViewUncheckedTodos.apply {
-            adapter = uncheckedAdapter
-            edgeEffectFactory = BounceEdgeEffectFactory()
-        }*/
-
-        /*val checkedAdapter = TodoAdapter(this, viewModel, true)
-        binding.views.recyclerViewCheckedTodos.apply {
-            adapter = checkedAdapter
-            visibility = View.GONE
-            binding.views.layoutHeaderCheckedTodos.setOnClickListener {
-                switchVisibilityWithTransition(this)
-                binding.views.arrowHeader.isChecked = !binding.views.arrowHeader.isChecked
-            }
-        }*/
-
+        // -- RecyclerView -- \\
         val adapter = MainAdapter(this, viewModel)
         binding.views.recyclerViewUncheckedTodos.apply {
             this.adapter = adapter
@@ -59,10 +43,8 @@ class MainActivity : AppCompatActivity() {
 
         // -- LISTENERS & OBSERVERS -- \\
         binding.views.root.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-            if (scrollY > oldScrollY)
-                binding.floatingActionButton.shrink()
-            else if (scrollY < oldScrollY)
-                binding.floatingActionButton.extend()
+            if (scrollY > oldScrollY) binding.floatingActionButton.shrink()
+            else if (scrollY < oldScrollY) binding.floatingActionButton.extend()
         }
 
         binding.floatingActionButton.setOnClickListener {
