@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private var checkedTodos: List<Todo> = emptyList()
+    var checkedTodos: List<Todo> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Handle the splash screen transition.
@@ -52,7 +52,10 @@ class MainActivity : AppCompatActivity() {
         }*/
 
         val adapter = MainAdapter(this, viewModel)
-        binding.views.recyclerViewUncheckedTodos.adapter = adapter
+        binding.views.recyclerViewUncheckedTodos.apply {
+            this.adapter = adapter
+            //edgeEffectFactory = BounceEdgeEffectFactory()
+        }
 
         // -- LISTENERS & OBSERVERS -- \\
         binding.views.root.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
@@ -67,8 +70,6 @@ class MainActivity : AppCompatActivity() {
             AddTodoDialogFragment.newInstance(30).show(supportFragmentManager, "dialog")
         }
 
-        //binding.views.buttonDeleteCheckedTodos.setOnClickListener { showDeleteCheckedTodosDialog() }
-
         viewModel.deletedTodo.observe(this) { deletedTodo ->
             Snackbar.make(binding.floatingActionButton, "Task deleted!", Snackbar.LENGTH_LONG)
                 .setAction(R.string.all_undo) { viewModel.insertTodo(deletedTodo) }
@@ -76,20 +77,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.uncheckedTodos().observe(this) { todos ->
-            /*uncheckedAdapter.submitList(todos)
-            if (todos.isEmpty()) binding.views.textViewNoTodos.visibility = View.VISIBLE
-            else binding.views.textViewNoTodos.visibility = View.GONE*/
             adapter.submitUncheckedList(todos)
         }
 
         viewModel.checkedTodos().observe(this) { todos ->
-            /*//!\\ I want to add a transition here
-            checkedAdapter.submitList(todos)
-            // Hide the "Show checked todos" button if y en a pas
-            if (todos.isEmpty()) binding.views.cardViewChecked.visibility = View.GONE
-            else binding.views.cardViewChecked.visibility = View.VISIBLE
-            binding.views.textViewCheckedNumber.text = todos.size.toString()
-            checkedTodos = todos*/
             adapter.submitCheckedList(todos)
         }
 
