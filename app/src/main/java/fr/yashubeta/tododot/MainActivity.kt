@@ -1,15 +1,10 @@
 package fr.yashubeta.tododot
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
-import androidx.transition.ChangeBounds
-import androidx.transition.TransitionManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import fr.yashubeta.tododot.database.Todo
 import fr.yashubeta.tododot.databinding.ActivityMainBinding
 
 
@@ -18,8 +13,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
 
     private lateinit var binding: ActivityMainBinding
-
-    var checkedTodos: List<Todo> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Handle the splash screen transition.
@@ -66,25 +59,6 @@ class MainActivity : AppCompatActivity() {
             adapter.submitCheckedList(todos)
         }
 
-    }
-
-    private fun switchVisibilityWithTransition(view: View) {
-        TransitionManager.beginDelayedTransition(binding.views.root, ChangeBounds())
-        when(view.visibility) {
-            View.INVISIBLE -> view.visibility = View.VISIBLE
-            View.VISIBLE -> view.visibility = View.GONE
-            View.GONE -> view.visibility = View.VISIBLE
-        }
-    }
-
-    private fun showDeleteCheckedTodosDialog() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle(resources.getString(R.string.dialog_delete_checked_todos_title))
-            .setNegativeButton(resources.getString(android.R.string.cancel)) { _, _ -> }
-            .setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
-                viewModel.deleteTodos(checkedTodos)
-            }
-            .show()
     }
 
 }
