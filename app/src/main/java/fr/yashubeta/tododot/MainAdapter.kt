@@ -139,12 +139,14 @@ class MainAdapter(
         }
     }
 
-    fun submitLists(unchecked: List<Todo>, checked: List<Todo>) {
+    fun submitLists(unchecked: List<Todo>, checked: List<Todo>?) {
         uncheckedList = unchecked.map { DataItem.TodoItem(it) }
-        checkedList = checked.map { DataItem.TodoItem(it, true) }
-        val list: List<DataItem> = uncheckedList + sectionItem + checkedList
-        submitList(list)
+        checkedList = checked?.map { DataItem.TodoItem(it, true) }?: emptyList()
+        submitList(sectionedList)
     }
+
+    private val sectionedList: List<DataItem>
+        get() = uncheckedList + sectionItem + checkedList
 
     private fun switchVisibilityWithTransition(binding: RecyclerViewCheckedBinding,view: View) {
         TransitionManager.beginDelayedTransition(binding.root, ChangeBounds())

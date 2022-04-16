@@ -46,14 +46,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.allTodosByIsChecked().observe(this) { allTodos ->
+            if (allTodos.isNullOrEmpty()) return@observe
             val checkedTodosIndex = allTodos.indexOfFirst { it.isChecked }
-            val uncheckedList = allTodos
-                .subList(0, checkedTodosIndex)
-                .sortedBy { it.position }
-            val checkedList = allTodos
-                .subList(checkedTodosIndex, allTodos.lastIndex)
-                .sortedBy { it.position }
-            adapter.submitLists(uncheckedList, checkedList)
+            if (checkedTodosIndex < 0) {
+                adapter.submitLists(allTodos, null)
+            } else {
+                val uncheckedList = allTodos
+                    .subList(0, checkedTodosIndex)
+                    .sortedBy { it.position }
+                val checkedList = allTodos
+                    .subList(checkedTodosIndex, allTodos.size)
+                    .sortedBy { it.position }
+                adapter.submitLists(uncheckedList, checkedList)
+            }
+
         }
 
         viewModel.deletedTodo.observe(this) { deletedTodo ->
