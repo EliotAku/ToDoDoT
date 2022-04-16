@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         val adapter = MainAdapter(this, viewModel)
         binding.views.recyclerViewUncheckedTodos.apply {
             this.adapter = adapter
-            //edgeEffectFactory = BounceEdgeEffectFactory()
         }
 
         // -- LISTENERS & OBSERVERS -- \\

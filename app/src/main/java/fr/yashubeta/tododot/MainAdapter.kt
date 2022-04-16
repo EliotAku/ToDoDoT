@@ -70,6 +70,7 @@ class MainAdapter(
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         itemTouchHelper.attachToRecyclerView(recyclerView)
+        //recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
         super.onAttachedToRecyclerView(recyclerView)
     }
 
