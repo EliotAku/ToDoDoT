@@ -45,6 +45,17 @@ class MainActivity : AppCompatActivity() {
             AddTodoDialogFragment.newInstance(30).show(supportFragmentManager, "dialog")
         }
 
+        viewModel.allTodosByIsChecked().observe(this) { allTodos ->
+            val checkedTodosIndex = allTodos.indexOfFirst { it.isChecked }
+            val uncheckedList = allTodos
+                .subList(0, checkedTodosIndex)
+                .sortedBy { it.position }
+            val checkedList = allTodos
+                .subList(checkedTodosIndex, allTodos.lastIndex)
+                .sortedBy { it.position }
+            adapter.submitLists(uncheckedList, checkedList)
+        }
+
         viewModel.deletedTodo.observe(this) { deletedTodo ->
             Snackbar.make(binding.floatingActionButton, "Task deleted!", Snackbar.LENGTH_LONG)
                 .setAction(R.string.all_undo) { viewModel.insertTodo(deletedTodo) }
@@ -52,11 +63,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.uncheckedTodos().observe(this) { todos ->
-            adapter.submitUncheckedList(todos)
+            //adapter.submitUncheckedList(todos)
         }
 
         viewModel.checkedTodos().observe(this) { todos ->
-            adapter.submitCheckedList(todos)
+            //adapter.submitCheckedList(todos)
         }
 
     }

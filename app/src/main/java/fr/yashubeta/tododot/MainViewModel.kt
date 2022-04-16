@@ -26,7 +26,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     } }
 
     // --> Get
-    fun allTodos(): LiveData<List<Todo>> = repo.allTodos().asLiveData()
+    fun allTodosByIsChecked(): LiveData<List<Todo>> = repo.allTodosByIsChecked().asLiveData()
     fun uncheckedTodos(): LiveData<List<Todo>> = repo.uncheckedTodos().asLiveData()
     fun checkedTodos(): LiveData<List<Todo>> = repo.checkedTodos().asLiveData()
     @Suppress("RedundantNullableReturnType")
