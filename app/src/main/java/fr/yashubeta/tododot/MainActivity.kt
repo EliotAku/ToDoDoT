@@ -70,15 +70,5 @@ class MainActivity : AppCompatActivity() {
                 .setAction(R.string.all_undo) { viewModel.insertTodo(deletedTodo) }
                 .show()
         }
-
-        viewModel.uncheckedTodos().observe(this) { todos ->
-            //adapter.submitUncheckedList(todos)
-        }
-
-        viewModel.checkedTodos().observe(this) { todos ->
-            //adapter.submitCheckedList(todos)
-        }
-
     }
-
 }
