@@ -6,6 +6,9 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import fr.yashubeta.tododot.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -47,18 +50,19 @@ class MainActivity : AppCompatActivity() {
         viewModel.allTodosByIsChecked().observe(this) { allTodos ->
             if (allTodos.isNullOrEmpty()) return@observe
             val checkedTodosIndex = allTodos.indexOfFirst { it.isChecked }
-            if (checkedTodosIndex < 0) {
-                adapter.submitLists(allTodos, null)
-            } else {
-                val uncheckedList = allTodos
-                    .subList(0, checkedTodosIndex)
-                    .sortedBy { it.position }
-                val checkedList = allTodos
-                    .subList(checkedTodosIndex, allTodos.size)
-                    .sortedBy { it.position }
-                adapter.submitLists(uncheckedList, checkedList)
+            CoroutineScope(Dispatchers.IO).launch {
+                if (checkedTodosIndex < 0) {
+                    adapter.submitLists(allTodos, null)
+                } else {
+                    val uncheckedList = allTodos
+                        .subList(0, checkedTodosIndex)
+                        .sortedBy { it.position }
+                    val checkedList = allTodos
+                        .subList(checkedTodosIndex, allTodos.size)
+                        .sortedBy { it.position }
+                    adapter.submitLists(uncheckedList, checkedList)
+                }
             }
-
         }
 
         viewModel.deletedTodo.observe(this) { deletedTodo ->
