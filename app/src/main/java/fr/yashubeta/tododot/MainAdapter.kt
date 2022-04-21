@@ -151,7 +151,6 @@ class MainAdapter(
                         isChecked = !isChecked
                     })
                 }
-
             }
         }
     }
@@ -164,6 +163,7 @@ class MainAdapter(
                     .sortedBy { it.position }
                     .map { DataItem.TodoItem(it) }
                 uncheckedList = unchecked
+
                 withContext(Dispatchers.Main) { this@MainAdapter.submitList(uncheckedList) }
             } else {
                 val unchecked = allTodos
@@ -188,15 +188,6 @@ class MainAdapter(
             uncheckedList + sectionItem + checkedList
         } else {
             uncheckedList + sectionItem
-        }
-    }
-
-    private fun switchVisibilityWithTransition(binding: RecyclerViewCheckedBinding,view: View) {
-        TransitionManager.beginDelayedTransition(binding.root, ChangeBounds())
-        when(view.visibility) {
-            View.INVISIBLE -> view.visibility = View.VISIBLE
-            View.VISIBLE -> view.visibility = View.GONE
-            View.GONE -> view.visibility = View.VISIBLE
         }
     }
 
