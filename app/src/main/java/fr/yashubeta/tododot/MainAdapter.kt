@@ -1,6 +1,5 @@
 package fr.yashubeta.tododot
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.ChangeBounds
-import androidx.transition.TransitionManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fr.yashubeta.tododot.database.Todo
 import fr.yashubeta.tododot.databinding.ItemSectionBinding
 import fr.yashubeta.tododot.databinding.ItemTodoBinding
-import fr.yashubeta.tododot.databinding.RecyclerViewCheckedBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
