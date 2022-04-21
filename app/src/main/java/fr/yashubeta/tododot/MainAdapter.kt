@@ -1,5 +1,6 @@
 package fr.yashubeta.tododot
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,10 @@ import fr.yashubeta.tododot.database.Todo
 import fr.yashubeta.tododot.databinding.ItemSectionBinding
 import fr.yashubeta.tododot.databinding.ItemTodoBinding
 import fr.yashubeta.tododot.databinding.RecyclerViewCheckedBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 private const val ITEM_VIEW_TYPE_SECTION = 0
@@ -29,6 +34,8 @@ class MainAdapter(
     private var checkedList = emptyList<DataItem.TodoItem>()
 
     private val sectionItem = DataItem.Section
+
+    private var isCheckedTodosVisible: Boolean = false
 
     class TodoViewHolder(
         val binding: ItemTodoBinding,
@@ -88,13 +95,18 @@ class MainAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_VIEW_TYPE_SECTION -> {
-                SectionViewHolder.from(parent)
+                SectionViewHolder.from(parent).apply {
+                    itemView.setOnClickListener {
+                        isCheckedTodosVisible = !isCheckedTodosVisible
+                        submitList(sectionedList)
+                    }
+                }
             }
             ITEM_VIEW_TYPE_UNCHECKED -> {
                 TodoViewHolder.from(parent)
             }
             ITEM_VIEW_TYPE_CHECKED -> {
-                TodoViewHolder.from(parent).apply { isChecked = true }
+                TodoViewHolder.from(parent)
             }
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
@@ -117,37 +129,67 @@ class MainAdapter(
                 }
 
                 when(getItemViewType(holderPosition)) {
-                    ITEM_VIEW_TYPE_UNCHECKED ->  holder.bind(item.todo, clickListener)
+                    ITEM_VIEW_TYPE_UNCHECKED -> {
+                        holder.bind(item.todo, clickListener)
+                        if (item.todo.position != holderPosition)
+                            viewModel.updateTodo(item.todo.apply {
+                                position = holderPosition
+                            })
+                    }
                     ITEM_VIEW_TYPE_CHECKED -> {
                         holder.bind(item.todo, clickListener)
-                        viewModel.updateTodo(item.todo.apply {
-                            position = holderPosition - uncheckedList.size - 1
-                        })
+                        if (item.todo.position != holderPosition - 1)
+                            viewModel.updateTodo(item.todo.apply {
+                                position = holderPosition - 1
+                            })
                     }
                 }
 
                 holder.binding.checkBox.setOnClickListener {
-                    viewModel.updateTodo(item.todo.apply { isChecked = !isChecked })
+                    viewModel.updateTodo(item.todo.apply {
+                        position = if (isChecked) 9999 else -1
+                        isChecked = !isChecked
+                    })
                 }
 
             }
-            /*is CheckedViewHolder -> {
-                holder.adapter.submitList(checkedList)
-                holder.binding.textViewCheckedNumber.text = checkedList.size.toString()
-                if (checkedList.isEmpty()) holder.binding.cardViewChecked.visibility = View.GONE
-                else holder.binding.cardViewChecked.visibility = View.VISIBLE
-            }*/
         }
     }
 
-    fun submitLists(unchecked: List<Todo>, checked: List<Todo>?) {
-        uncheckedList = unchecked.map { DataItem.TodoItem(it) }
-        checkedList = checked?.map { DataItem.TodoItem(it, true) }?: emptyList()
-        submitList(sectionedList)
+    fun submitTodoList(allTodos: List<Todo>) {
+        val checkedTodosIndex = allTodos.indexOfFirst { it.isChecked }
+        CoroutineScope(Dispatchers.IO).launch {
+            if (checkedTodosIndex < 0) {
+                val unchecked: List<DataItem.TodoItem> = allTodos
+                    .sortedBy { it.position }
+                    .map { DataItem.TodoItem(it) }
+                uncheckedList = unchecked
+                withContext(Dispatchers.Main) { this@MainAdapter.submitList(uncheckedList) }
+            } else {
+                val unchecked = allTodos
+                    .subList(0, checkedTodosIndex)
+                    .sortedBy { it.position }
+                    .map { DataItem.TodoItem(it) }
+                uncheckedList = unchecked
+
+                val checked = allTodos
+                    .subList(checkedTodosIndex, allTodos.size)
+                    .sortedBy { it.position }
+                    .map { DataItem.TodoItem(it, isChecked = true) }
+                checkedList = checked
+
+                withContext(Dispatchers.Main) { this@MainAdapter.submitList(sectionedList) }
+            }
+        }
     }
 
-    private val sectionedList: List<DataItem>
-        get() = uncheckedList + sectionItem + checkedList
+    private val sectionedList: List<DataItem> get() {
+        return if (isCheckedTodosVisible) {
+            uncheckedList + sectionItem + checkedList
+        } else {
+            uncheckedList + sectionItem
+        }
+    }
 
     private fun switchVisibilityWithTransition(binding: RecyclerViewCheckedBinding,view: View) {
         TransitionManager.beginDelayedTransition(binding.root, ChangeBounds())
@@ -181,42 +223,44 @@ class MainAdapter(
     private val itemTouchHelper by lazy {
         val itemTouchCallback = object: ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
-            override fun onMove(
+            override fun canDropOver(
                 recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
+                current: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                if (target is TodoViewHolder && target.isChecked || target is SectionViewHolder)
-                    return false
-                
-                val fromPosition = viewHolder.bindingAdapterPosition
+                val sectionIndex = currentList.indexOfFirst { it is DataItem.Section }
+                return target.bindingAdapterPosition < sectionIndex || sectionIndex < 0
+            }
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                current: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val dataset: MutableList<DataItem> = currentList.toMutableList()
+                val fromPosition = current.bindingAdapterPosition
                 val toPosition = target.bindingAdapterPosition
-                if (fromPosition < toPosition) {
-                    for (i in fromPosition until toPosition) {
-                        Collections.swap(uncheckedList, i, i + 1)
-                        val position1 = uncheckedList[i].todo.position
-                        val position2 = uncheckedList[i+1].todo.position
-                        uncheckedList[i].todo.position = position2
-                        uncheckedList[i+1].todo.position = position1
-                    }
-                } else {
-                    for (i in fromPosition downTo toPosition + 1) {
-                        Collections.swap(uncheckedList, i, i - 1)
-                        val position1 = uncheckedList[i].todo.position
-                        val position2 = uncheckedList[i-1].todo.position
-                        uncheckedList[i].todo.position = position2
-                        uncheckedList[i-1].todo.position = position1
-                    }
-                }
-                submitLists(uncheckedList.map { it.todo }, checkedList.map { it.todo })
+                Collections.swap(dataset, fromPosition, toPosition)
+
+                val item = dataset[fromPosition] as? DataItem.TodoItem
+                item?.todo?.position = fromPosition
+
+                val nextItem = dataset[toPosition] as? DataItem.TodoItem
+                nextItem?.todo?.position = toPosition
+
+                submitList(dataset)
                 return true
             }
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {  }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            }
 
             override fun clearView(recyclerView: RecyclerView, holder: RecyclerView.ViewHolder) {
                 super.clearView(recyclerView, holder)
-                viewModel.updateTodos(uncheckedList.map { it.todo } + checkedList.map { it.todo })
+                val newList = currentList.mapNotNull {
+                    if (it is DataItem.TodoItem) it.todo else null
+                }
+                viewModel.updateTodos(newList)
             }
         }
         ItemTouchHelper(itemTouchCallback)
