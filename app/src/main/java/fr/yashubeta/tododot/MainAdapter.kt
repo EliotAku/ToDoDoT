@@ -26,9 +26,10 @@ class MainAdapter(
     private val viewModel: MainViewModel
 ): ListAdapter<DataItem, RecyclerView.ViewHolder>(ItemDiffCallBack) {
 
+    private var adapterRecyclerView: RecyclerView? = null
+
     private var uncheckedList = emptyList<DataItem.TodoItem>()
     private var checkedList = emptyList<DataItem.TodoItem>()
-
     private val sectionItem = DataItem.Section
 
     private var isCheckedTodosVisible: Boolean = false
@@ -74,6 +75,7 @@ class MainAdapter(
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         itemTouchHelper.attachToRecyclerView(recyclerView)
         //recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
+        adapterRecyclerView = recyclerView
         super.onAttachedToRecyclerView(recyclerView)
     }
 
@@ -94,7 +96,11 @@ class MainAdapter(
                 SectionViewHolder.from(parent).apply {
                     itemView.setOnClickListener {
                         isCheckedTodosVisible = !isCheckedTodosVisible
+                        binding.arrowHeader.isChecked = isCheckedTodosVisible
                         submitList(sectionedList)
+                    }
+                    binding.buttonDeleteCheckedTodos.setOnClickListener {
+                        showDeleteCheckedTodosDialog()
                     }
                 }
             }
@@ -112,8 +118,7 @@ class MainAdapter(
         val item = getItem(holderPosition)
         when(holder) {
             is SectionViewHolder -> {
-                holder.binding.root.text = activity.resources
-                    .getText(R.string.header_title_checked_todos)
+
             }
             is TodoViewHolder -> {
                 if (item !is DataItem.TodoItem) return
@@ -176,6 +181,7 @@ class MainAdapter(
 
                 withContext(Dispatchers.Main) { this@MainAdapter.submitList(sectionedList) }
             }
+            withContext(Dispatchers.Main) { setSectionCheckedTodoNumber() }
         }
     }
 
@@ -192,9 +198,15 @@ class MainAdapter(
             .setTitle(activity.resources.getString(R.string.dialog_delete_checked_todos_title))
             .setNegativeButton(activity.resources.getString(android.R.string.cancel)) { _, _ -> }
             .setPositiveButton(activity.resources.getString(android.R.string.ok)) { _, _ ->
-                viewModel.deleteTodos(uncheckedList.map { it.todo })
+                viewModel.deleteTodos(checkedList.map { it.todo })
             }
             .show()
+    }
+
+    private fun setSectionCheckedTodoNumber() {
+        val section = adapterRecyclerView?.findViewHolderForAdapterPosition(
+            currentList.indexOf(sectionItem)) as? SectionViewHolder
+        section?.binding?.textViewCheckedNumber?.text = checkedList.size.toString()
     }
 
     object ItemDiffCallBack : DiffUtil.ItemCallback<DataItem>() {

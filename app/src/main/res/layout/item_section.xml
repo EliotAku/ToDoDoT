@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_header_checked_todos"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/spacing_large"
-    tools:text="SECTION TITLE" />
+    android:layout_height="48dp"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/spacing_medium">
+    <TextView
+        android:id="@+id/text_view_hide"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="@string/header_title_checked_todos"
+        android:gravity="center_vertical" />
+    <TextView
+        android:id="@+id/text_view_checked_number"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/spacing_small"
+        android:gravity="center_vertical"/>
+    <ImageButton
+        android:id="@+id/button_delete_checked_todos"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_trash"
+        android:layout_gravity="center_vertical" />
+    <CheckBox
+        android:id="@+id/arrow_header"
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:stateListAnimator="@xml/animate_rotation"
+        android:button="@drawable/ic_arrow_down"
+        android:buttonTint="@null"
+        android:drawableTint="@null"
+        android:layout_gravity="center_vertical" />
+</LinearLayout>
