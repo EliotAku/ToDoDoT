@@ -1,9 +1,16 @@
 package fr.yashubeta.tododot
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.doOnLayout
+import androidx.core.view.marginBottom
+import androidx.core.view.marginTop
+import androidx.core.view.updatePadding
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fr.yashubeta.tododot.databinding.ActivityMainBinding
 
@@ -31,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         val adapter = MainAdapter(this, viewModel)
         binding.views.recyclerViewUncheckedTodos.apply {
             this.adapter = adapter
+            this.attachToFab(binding.floatingActionButton)
         }
 
         // -- LISTENERS & OBSERVERS -- \\
@@ -53,6 +61,14 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(binding.floatingActionButton, "Task deleted!", Snackbar.LENGTH_LONG)
                 .setAction(R.string.all_undo) { viewModel.insertTodo(deletedTodo) }
                 .show()
+        }
+    }
+
+    private fun RecyclerView.attachToFab(fab: View) {
+        clipToPadding = false
+        fab.doOnLayout {
+            val fabSizeWithMargin = fab.height + fab.marginBottom + fab.marginTop
+            updatePadding(bottom = fabSizeWithMargin)
         }
     }
 }
