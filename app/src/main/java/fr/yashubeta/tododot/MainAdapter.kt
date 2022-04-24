@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.DOWN
+import androidx.recyclerview.widget.ItemTouchHelper.UP
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -122,6 +124,7 @@ class MainAdapter(
             }
             is TodoViewHolder -> {
                 if (item !is DataItem.TodoItem) return
+                holder.isChecked = getItemViewType(holderPosition) == ITEM_VIEW_TYPE_CHECKED
 
                 val clickListener = View.OnClickListener {
                     // TODO: À déplacer dans MainActivity
@@ -222,6 +225,19 @@ class MainAdapter(
     private val itemTouchHelper by lazy {
         val itemTouchCallback = object: ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
+            override fun getMovementFlags(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ): Int {
+                val sectionIndex = currentList.indexOfFirst { it is DataItem.Section }
+                val isCheckedItem = viewHolder
+                    .bindingAdapterPosition < sectionIndex || sectionIndex < 0
+                return makeMovementFlags(
+                    if (viewHolder is TodoViewHolder && isCheckedItem) UP or DOWN else 0,
+                    0
+                )
+            }
+
             override fun canDropOver(
                 recyclerView: RecyclerView,
                 current: RecyclerView.ViewHolder,
