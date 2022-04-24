@@ -4,8 +4,9 @@
     <!-- Text -->
 
     <!-- Views -->
-    <style name="View.App.EditText" parent="ThemeOverlay.Material3.TextInputEditText.FilledBox">
-        <item name="android:inputType">text|textMultiLine|textCapSentences|textAutoCorrect</item>
+    <style name="View.App.EditText" parent="Widget.AppCompat.EditText">
+        <!--<item name="android:inputType">text|textMultiLine|textAutoCorrect</item>-->
+        <item name="android:imeOptions">actionDone</item>
         <item name="android:background">@null</item>
         <item name="android:isScrollContainer">true</item>
     </style>

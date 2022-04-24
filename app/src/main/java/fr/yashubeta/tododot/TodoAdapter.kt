@@ -1,6 +1,5 @@
 package fr.yashubeta.tododot
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,9 +26,9 @@ class TodoAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(
-            ItemTodoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        )
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ItemTodoBinding.inflate(layoutInflater, parent, false)
+        return ItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, holderPosition: Int) {
@@ -71,12 +70,6 @@ class TodoAdapter(
             TodoDialogFragment(viewModel, item).show(activity.supportFragmentManager, "dialog")
         }
     }
-
-    /*@SuppressLint("NotifydatasetChanged")
-    fun submitList(todos: List<Todo>) {
-        dataset = todos.toMutableList()
-        notifydatasetChanged()
-    }*/
 
     object TodoDiffCallBack : DiffUtil.ItemCallback<Todo>() {
         override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {

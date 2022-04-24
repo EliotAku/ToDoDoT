@@ -35,9 +35,8 @@
             android:layout_alignParentEnd="true"
             android:src="@drawable/ic_trash" />
 
-        <EditText
+        <fr.yashubeta.tododot.view.CleanEditText
             android:id="@+id/text_view_todo_title"
-            style="@style/View.App.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -47,9 +46,8 @@
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
             tools:text="Todo Title" />
 
-        <EditText
+        <fr.yashubeta.tododot.view.CleanEditText
             android:id="@+id/text_view_todo_note"
-            style="@style/View.App.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_todo_title"

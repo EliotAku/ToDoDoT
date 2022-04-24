@@ -13,7 +13,7 @@ class TodoRepository(private val todoDao: TodoDao) {
     suspend fun deleteTodo(todo: Todo) { todoDao.deleteTodo(todo) }
 
     // --> Get
-    fun allTodos(): Flow<List<Todo>> = todoDao.getTodos()
+    fun allTodosByIsChecked(): Flow<List<Todo>> = todoDao.getTodosByIsChecked()
     fun uncheckedTodos(): Flow<List<Todo>> = todoDao.getUncheckedTodos()
     fun checkedTodos(): Flow<List<Todo>> = todoDao.getCheckedTodos()
     suspend fun getHighestPosition(): Int = todoDao.getHighestPosition()

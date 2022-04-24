@@ -40,21 +40,20 @@
         android:paddingBottom="@dimen/list_item_spacing_half"
         android:paddingHorizontal="@dimen/spacing_large">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <fr.yashubeta.tododot.view.CleanEditText
             android:id="@+id/edit_text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_task_name"
-            style="@style/View.App.EditText"
+            android:imeOptions="actionNext"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:paddingVertical="@dimen/list_item_spacing_half" />
 
-        <com.google.android.material.textfield.TextInputEditText
+        <fr.yashubeta.tododot.view.CleanEditText
             android:id="@+id/edit_text_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_task_note"
-            style="@style/View.App.EditText"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:paddingVertical="@dimen/list_item_spacing_half"
             android:layout_below="@id/edit_text_title" />

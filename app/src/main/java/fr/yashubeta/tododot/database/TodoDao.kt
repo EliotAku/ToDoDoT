@@ -26,8 +26,8 @@ interface TodoDao {
 
     // --> Getters
 
-    @Query("SELECT * FROM todos ORDER BY position ASC")
-    fun getTodos(): Flow<List<Todo>>
+    @Query("SELECT * FROM todos ORDER BY isChecked ASC")
+    fun getTodosByIsChecked(): Flow<List<Todo>>
 
     @Query("SELECT * FROM todos WHERE isChecked = 0 ORDER BY position ASC")
     fun getUncheckedTodos(): Flow<List<Todo>>
