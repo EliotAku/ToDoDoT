@@ -89,7 +89,7 @@ class MainAdapter(
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         itemTouchHelper.attachToRecyclerView(recyclerView)
-        //recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
+        recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
         adapterRecyclerView = recyclerView
         super.onAttachedToRecyclerView(recyclerView)
     }
@@ -299,7 +299,7 @@ class MainAdapter(
             override fun clearView(recyclerView: RecyclerView, holder: RecyclerView.ViewHolder) {
                 super.clearView(recyclerView, holder)
                 // TODO: Find another way to disable the range selection
-                //tracker?.endRange()
+                tracker?.endRange()
                 val newList = currentList.mapNotNull { //(it as? DataItem.TodoItem)?.todo
                     if (it is DataItem.TodoItem) it.todo else null
                 }
