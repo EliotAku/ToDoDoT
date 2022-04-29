@@ -63,9 +63,9 @@ class MainActivity : AppCompatActivity() {
             MyItemKeyProvider(binding.views.recyclerView),
             MyItemDetailsLookup(binding.views.recyclerView),
             StorageStrategy.createLongStorage()
-        )
-            .withSelectionPredicate(SelectionPredicates.createSelectAnything())
-            .build()
+        ).withSelectionPredicate(
+            SelectionPredicates.createSelectAnything()
+        ).build()
 
         val actionModeCallback = object : ActionMode.Callback {
             override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
@@ -82,7 +82,8 @@ class MainActivity : AppCompatActivity() {
             override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
                 return when (item?.itemId) {
                     R.id.action_delete -> {
-                        selectionList.let { viewModel.deleteTodos(it) }
+                        val selectedTodos = mutableListOf<Todo>().also { it.addAll(selectionList) }
+                        viewModel.deleteTodos(selectedTodos)
                         mode?.finish() // Action picked, so close the CAB
                         true
                     }
@@ -95,15 +96,12 @@ class MainActivity : AppCompatActivity() {
                 adapter.tracker?.clearSelection()
                 actionMode = null
             }
-
         }
 
         // -- LISTENERS & OBSERVERS -- \\
         adapter.tracker?.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onItemStateChanged(key: Long, selected: Boolean) {
                 super.onItemStateChanged(key, selected)
-                //binding.views.root.findViewHolderForItemId(key)?.itemView?.isActivated = selected
-
                 val newList = adapter.currentList.mapNotNull { (it as? DataItem.TodoItem)?.todo }
                 val item = newList.find { it.todoId == key.toInt() }
                 if (selected) item?.let { selectionList.add(it) } else selectionList.remove(item)
@@ -114,10 +112,10 @@ class MainActivity : AppCompatActivity() {
                 val selection = adapter.tracker?.selection
                 if (selection?.isEmpty == true) {
                     actionMode?.finish()
-                    return
+                } else {
+                    if (actionMode == null) actionMode = startSupportActionMode(actionModeCallback)
+                    actionMode?.title = "${selection?.size()} selected"
                 }
-                if (actionMode == null) actionMode = startSupportActionMode(actionModeCallback)
-                actionMode?.title = "${selection?.size()} selected"
             }
         })
 
