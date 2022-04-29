@@ -5,7 +5,7 @@
     android:id="@+id/layout_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/color_item"
+    style="@style/Widget.Material3.CardView.Elevated"
     android:focusable="true"
     android:clickable="true"
     android:longClickable="true"
