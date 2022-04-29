@@ -1,8 +1,11 @@
 package fr.yashubeta.tododot
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.selection.ItemDetailsLookup
+import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.DOWN
@@ -28,6 +31,7 @@ class MainAdapter(
     private val viewModel: MainViewModel
 ): ListAdapter<DataItem, RecyclerView.ViewHolder>(ItemDiffCallBack) {
 
+    var tracker: SelectionTracker<Long>? = null
     private var adapterRecyclerView: RecyclerView? = null
 
     private var uncheckedList = emptyList<DataItem.TodoItem>()
@@ -35,6 +39,10 @@ class MainAdapter(
     private val sectionItem = DataItem.Section
 
     private var isCheckedTodosVisible: Boolean = false
+
+    init {
+        setHasStableIds(true)
+    }
 
     class TodoViewHolder(
         val binding: ItemTodoBinding,
@@ -61,6 +69,11 @@ class MainAdapter(
             }
             binding.checkBox.isChecked = todo.isChecked
         }
+
+        fun getItemDetails() = object : ItemDetailsLookup.ItemDetails<Long>() {
+            override fun getPosition(): Int = bindingAdapterPosition
+            override fun getSelectionKey(): Long = itemId
+        }
     }
     class SectionViewHolder(
         val binding: ItemSectionBinding
@@ -81,6 +94,8 @@ class MainAdapter(
         super.onAttachedToRecyclerView(recyclerView)
     }
 
+    override fun getItemId(position: Int): Long { return currentList[position].id }
+
     override fun getItemViewType(position: Int): Int {
         return when(val item = getItem(position)) {
             is DataItem.Section -> ITEM_VIEW_TYPE_SECTION
@@ -89,7 +104,6 @@ class MainAdapter(
                 else ITEM_VIEW_TYPE_UNCHECKED
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -118,6 +132,7 @@ class MainAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, holderPosition: Int) {
         val item = getItem(holderPosition)
+        //holder.itemView.isActivated = tracker?.isSelected(item.id) ?: false
         when(holder) {
             is SectionViewHolder -> {
 
@@ -135,10 +150,14 @@ class MainAdapter(
                 when(getItemViewType(holderPosition)) {
                     ITEM_VIEW_TYPE_UNCHECKED -> {
                         holder.bind(item.todo, clickListener)
+                        tracker?.let {
+
+                        }
                         if (item.todo.position != holderPosition)
                             viewModel.updateTodo(item.todo.apply {
                                 position = holderPosition
                             })
+
                     }
                     ITEM_VIEW_TYPE_CHECKED -> {
                         holder.bind(item.todo, clickListener)
@@ -206,6 +225,10 @@ class MainAdapter(
             .show()
     }
 
+    fun List<DataItem>.mapToTodo() : List<Todo> {
+        return this.mapNotNull { if (it is DataItem.TodoItem) it.todo else null }
+    }
+
     private fun setSectionCheckedTodoNumber() {
         val section = adapterRecyclerView?.findViewHolderForAdapterPosition(
             currentList.indexOf(sectionItem)) as? SectionViewHolder
@@ -224,7 +247,7 @@ class MainAdapter(
 
     private val itemTouchHelper by lazy {
         val itemTouchCallback = object: ItemTouchHelper.SimpleCallback(
-            ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
+            UP or DOWN, 0) {
             override fun getMovementFlags(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder
@@ -263,6 +286,8 @@ class MainAdapter(
                 val nextItem = dataset[toPosition] as? DataItem.TodoItem
                 nextItem?.todo?.position = toPosition
 
+                tracker?.clearSelection()
+
                 submitList(dataset)
                 return true
             }
@@ -270,9 +295,12 @@ class MainAdapter(
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             }
 
+            @SuppressLint("RestrictedApi")
             override fun clearView(recyclerView: RecyclerView, holder: RecyclerView.ViewHolder) {
                 super.clearView(recyclerView, holder)
-                val newList = currentList.mapNotNull {
+                // TODO: Find another way to disable the range selection
+                //tracker?.endRange()
+                val newList = currentList.mapNotNull { //(it as? DataItem.TodoItem)?.todo
                     if (it is DataItem.TodoItem) it.todo else null
                 }
                 viewModel.updateTodos(newList)
@@ -283,13 +311,13 @@ class MainAdapter(
 }
 
 sealed class DataItem {
-    abstract val id: Int
+    abstract val id: Long
 
     object Section: DataItem() {
-        override val id: Int = Int.MIN_VALUE
+        override val id = Long.MIN_VALUE
     }
 
     data class TodoItem(val todo: Todo, val isChecked: Boolean = false): DataItem() {
-        override val id = todo.todoId
+        override val id = todo.todoId.toLong()
     }
 }

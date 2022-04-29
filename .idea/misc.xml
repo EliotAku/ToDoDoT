@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_more_vert.xml" value="0.183" />
+        <entry key="app/src/main/res/drawable/selectable_item_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/selector_checkbox_circle.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/shape_rounded.xml" value="0.183" />
         <entry key="app/src/main/res/layout-night/view_bottom_sheet_handle.xml" value="1.9858713785807294" />
@@ -31,6 +32,7 @@
         <entry key="app/src/main/res/layout/recycler_view_checked.xml" value="0.2453125" />
         <entry key="app/src/main/res/layout/recycler_view_unchecked.xml" value="0.2453125" />
         <entry key="app/src/main/res/layout/view_bottom_sheet_handle.xml" value="0.5265584088753963" />
+        <entry key="app/src/main/res/menu/selection_menu.xml" value="0.21770833333333334" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="app/src/main/res/xml/animator_rotation.xml" value="0.17592592592592593" />
