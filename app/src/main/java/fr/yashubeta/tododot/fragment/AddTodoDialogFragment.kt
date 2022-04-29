@@ -1,4 +1,4 @@
-package fr.yashubeta.tododot
+package fr.yashubeta.tododot.fragment
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -11,6 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import fr.yashubeta.tododot.MainViewModel
+import fr.yashubeta.tododot.R
 import fr.yashubeta.tododot.database.Todo
 import fr.yashubeta.tododot.databinding.FragmentBottomSheetAddTodoBinding
 import kotlinx.coroutines.Dispatchers.IO

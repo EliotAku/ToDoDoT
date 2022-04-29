@@ -14,7 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fr.yashubeta.tododot.MainActivity
 import fr.yashubeta.tododot.MainViewModel
 import fr.yashubeta.tododot.R
-import fr.yashubeta.tododot.TodoDialogFragment
+import fr.yashubeta.tododot.fragment.TodoDialogFragment
 import fr.yashubeta.tododot.database.Todo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

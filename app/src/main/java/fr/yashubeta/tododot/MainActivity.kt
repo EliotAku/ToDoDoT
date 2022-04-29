@@ -13,7 +13,6 @@ import androidx.core.view.marginBottom
 import androidx.core.view.marginTop
 import androidx.core.view.updatePadding
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.selection.ItemKeyProvider
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
@@ -23,9 +22,9 @@ import fr.yashubeta.tododot.adapter.DataItem
 import fr.yashubeta.tododot.adapter.MainAdapter
 import fr.yashubeta.tododot.adapter.MyItemDetailsLookup
 import fr.yashubeta.tododot.adapter.MyItemKeyProvider
-import fr.yashubeta.tododot.adapter.TodoViewHolder
 import fr.yashubeta.tododot.database.Todo
 import fr.yashubeta.tododot.databinding.ActivityMainBinding
+import fr.yashubeta.tododot.fragment.AddTodoDialogFragment
 
 
 class MainActivity : AppCompatActivity() {

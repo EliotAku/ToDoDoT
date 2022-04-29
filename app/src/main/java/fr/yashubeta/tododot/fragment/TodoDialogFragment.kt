@@ -1,4 +1,4 @@
-package fr.yashubeta.tododot
+package fr.yashubeta.tododot.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.snackbar.Snackbar
+import fr.yashubeta.tododot.MainViewModel
 import fr.yashubeta.tododot.database.Todo
 import fr.yashubeta.tododot.databinding.FragmentBottomSheetTodoBinding
 
