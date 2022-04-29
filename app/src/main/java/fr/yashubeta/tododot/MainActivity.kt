@@ -52,16 +52,16 @@ class MainActivity : AppCompatActivity() {
 
         // -- RecyclerView -- \\
         val adapter = MainAdapter(this, viewModel)
-        binding.views.recyclerViewUncheckedTodos.apply {
+        binding.views.recyclerView.apply {
             this.adapter = adapter
             this.attachToFab(binding.floatingActionButton)
         }
 
         adapter.tracker = SelectionTracker.Builder(
             "my-selection-id",
-            binding.views.recyclerViewUncheckedTodos,
-            MyItemKeyProvider(binding.views.recyclerViewUncheckedTodos),
-            MyItemDetailsLookup(binding.views.recyclerViewUncheckedTodos),
+            binding.views.recyclerView,
+            MyItemKeyProvider(binding.views.recyclerView),
+            MyItemDetailsLookup(binding.views.recyclerView),
             StorageStrategy.createLongStorage())
             .withSelectionPredicate(SelectionPredicates.createSelectAnything())
             .build()
