@@ -1,4 +1,4 @@
-package fr.yashubeta.tododot
+package fr.yashubeta.tododot.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import fr.yashubeta.tododot.MainActivity
+import fr.yashubeta.tododot.MainViewModel
+import fr.yashubeta.tododot.TodoDialogFragment
 import fr.yashubeta.tododot.database.Todo
 import fr.yashubeta.tododot.databinding.ItemTodoBinding
 import java.util.*

@@ -1,15 +1,16 @@
-package fr.yashubeta.tododot
+package fr.yashubeta.tododot.adapter
 
 import android.view.MotionEvent
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.widget.RecyclerView
+import fr.yashubeta.tododot.adapter.TodoViewHolder
 
 class MyItemDetailsLookup(private val recyclerView: RecyclerView
 ) : ItemDetailsLookup<Long>() {
     override fun getItemDetails(event: MotionEvent): ItemDetails<Long>? {
         val view = recyclerView.findChildViewUnder(event.x, event.y)
         return if (view != null) {
-            (recyclerView.getChildViewHolder(view) as? MainAdapter.TodoViewHolder)?.getItemDetails()
+            (recyclerView.getChildViewHolder(view) as? TodoViewHolder)?.getItemDetails()
         } else null
     }
 }

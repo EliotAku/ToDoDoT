@@ -1,4 +1,4 @@
-package fr.yashubeta.tododot
+package fr.yashubeta.tododot.adapter
 
 import android.graphics.Canvas
 import android.widget.EdgeEffect

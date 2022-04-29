@@ -19,6 +19,11 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import fr.yashubeta.tododot.adapter.DataItem
+import fr.yashubeta.tododot.adapter.MainAdapter
+import fr.yashubeta.tododot.adapter.MyItemDetailsLookup
+import fr.yashubeta.tododot.adapter.MyItemKeyProvider
+import fr.yashubeta.tododot.adapter.TodoViewHolder
 import fr.yashubeta.tododot.database.Todo
 import fr.yashubeta.tododot.databinding.ActivityMainBinding
 
@@ -148,30 +153,5 @@ class MainActivity : AppCompatActivity() {
             val fabSizeWithMargin = fab.height + fab.marginBottom + fab.marginTop
             updatePadding(bottom = fabSizeWithMargin)
         }
-    }
-}
-
-private class MySelectionPredicate(private val recyclerView: RecyclerView
-): SelectionTracker.SelectionPredicate<Long>() {
-    override fun canSelectMultiple(): Boolean = true
-
-    override fun canSetStateForKey(key: Long, nextState: Boolean): Boolean {
-        val holder = recyclerView.findViewHolderForItemId(key)
-        return holder is MainAdapter.TodoViewHolder
-    }
-
-    override fun canSetStateAtPosition(position: Int, nextState: Boolean): Boolean {
-        if (position < 0) return false
-        val holder = recyclerView.findViewHolderForAdapterPosition(position)
-        return holder is MainAdapter.TodoViewHolder
-    }
-}
-
-private class MyItemKeyProvider(private val recyclerView: RecyclerView
-) : ItemKeyProvider<Long>(SCOPE_CACHED) {
-    override fun getKey(position: Int): Long? = recyclerView.adapter?.getItemId(position)
-    override fun getPosition(key: Long): Int {
-        val viewHolder = recyclerView.findViewHolderForItemId(key)
-        return viewHolder?.layoutPosition ?: RecyclerView.NO_POSITION
     }
 }

@@ -1,10 +1,8 @@
-package fr.yashubeta.tododot
+package fr.yashubeta.tododot.adapter
 
 import android.annotation.SuppressLint
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -13,9 +11,11 @@ import androidx.recyclerview.widget.ItemTouchHelper.UP
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import fr.yashubeta.tododot.MainActivity
+import fr.yashubeta.tododot.MainViewModel
+import fr.yashubeta.tododot.R
+import fr.yashubeta.tododot.TodoDialogFragment
 import fr.yashubeta.tododot.database.Todo
-import fr.yashubeta.tododot.databinding.ItemSectionBinding
-import fr.yashubeta.tododot.databinding.ItemTodoBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,49 +42,6 @@ class MainAdapter(
 
     init {
         setHasStableIds(true)
-    }
-
-    class TodoViewHolder(
-        val binding: ItemTodoBinding,
-        var isChecked: Boolean = false
-    ) : RecyclerView.ViewHolder(binding.root) {
-        companion object {
-            fun from(parent: ViewGroup): TodoViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemTodoBinding.inflate(layoutInflater, parent, false)
-                return TodoViewHolder(binding)
-            }
-        }
-
-        fun bind(todo: Todo, clickListener: View.OnClickListener) {
-            binding.root.setOnClickListener(clickListener)
-            binding.textViewItemTodo.text = todo.title
-            binding.textViewNote.apply {
-                if (todo.note.isNullOrEmpty()) {
-                    this.visibility = View.GONE
-                } else {
-                    this.visibility = View.VISIBLE
-                    this.text = todo.note
-                }
-            }
-            binding.checkBox.isChecked = todo.isChecked
-        }
-
-        fun getItemDetails() = object : ItemDetailsLookup.ItemDetails<Long>() {
-            override fun getPosition(): Int = bindingAdapterPosition
-            override fun getSelectionKey(): Long = itemId
-        }
-    }
-    class SectionViewHolder(
-        val binding: ItemSectionBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-        companion object {
-            fun from(parent: ViewGroup): SectionViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemSectionBinding.inflate(layoutInflater, parent, false)
-                return SectionViewHolder(binding)
-            }
-        }
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
