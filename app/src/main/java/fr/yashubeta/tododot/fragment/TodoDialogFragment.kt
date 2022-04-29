@@ -67,7 +67,7 @@ class TodoDialogFragment(
         _binding = null
     }
 
-    private fun setCheckCircle(){
+    private fun setCheckCircle() {
         binding.imageButtonCheckCircle.isChecked = todo.isChecked
     }
 

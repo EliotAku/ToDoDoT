@@ -39,7 +39,8 @@ class BounceEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
 
                 // Translate the recyclerView with the distance
                 val sign = if (direction == DIRECTION_BOTTOM) -1 else 1
-                val translationYDelta = sign * recyclerView.width * deltaDistance * OVERSCROLL_TRANSLATION_MAGNITUDE
+                val translationYDelta =
+                    sign * recyclerView.width * deltaDistance * OVERSCROLL_TRANSLATION_MAGNITUDE
                 recyclerView.translationY += translationYDelta
 
                 translationAnim?.cancel()
@@ -60,7 +61,8 @@ class BounceEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
                 val sign = if (direction == DIRECTION_BOTTOM) -1 else 1
                 val translationVelocity = sign * velocity * FLING_TRANSLATION_MAGNITUDE
                 translationAnim?.cancel()
-                translationAnim = createAnim().setStartVelocity(translationVelocity)?.also { it.start() }
+                translationAnim =
+                    createAnim().setStartVelocity(translationVelocity)?.also { it.start() }
             }
 
             override fun draw(canvas: Canvas?): Boolean {
@@ -74,10 +76,11 @@ class BounceEdgeEffectFactory : RecyclerView.EdgeEffectFactory() {
             }
 
             private fun createAnim() = SpringAnimation(recyclerView, SpringAnimation.TRANSLATION_Y)
-                .setSpring(SpringForce()
-                    .setFinalPosition(0f)
-                    .setDampingRatio(SpringForce.DAMPING_RATIO_MEDIUM_BOUNCY)
-                    .setStiffness(SpringForce.STIFFNESS_LOW)
+                .setSpring(
+                    SpringForce()
+                        .setFinalPosition(0f)
+                        .setDampingRatio(SpringForce.DAMPING_RATIO_MEDIUM_BOUNCY)
+                        .setStiffness(SpringForce.STIFFNESS_LOW)
                 )
 
         }

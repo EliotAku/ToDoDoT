@@ -62,7 +62,8 @@ class MainActivity : AppCompatActivity() {
             binding.views.recyclerView,
             MyItemKeyProvider(binding.views.recyclerView),
             MyItemDetailsLookup(binding.views.recyclerView),
-            StorageStrategy.createLongStorage())
+            StorageStrategy.createLongStorage()
+        )
             .withSelectionPredicate(SelectionPredicates.createSelectAnything())
             .build()
 
@@ -102,14 +103,10 @@ class MainActivity : AppCompatActivity() {
             override fun onItemStateChanged(key: Long, selected: Boolean) {
                 super.onItemStateChanged(key, selected)
                 binding.views.root.findViewHolderForItemId(key)?.itemView?.isActivated = selected
+
                 val newList = adapter.currentList.mapNotNull { (it as? DataItem.TodoItem)?.todo }
                 val item = newList.find { it.todoId == key.toInt() }
-                if (selected) {
-                    item?.let { selectionList.add(it) }
-                } else {
-                    selectionList.remove(item)
-                }
-
+                if (selected) item?.let { selectionList.add(it) } else selectionList.remove(item)
             }
 
             override fun onSelectionChanged() {

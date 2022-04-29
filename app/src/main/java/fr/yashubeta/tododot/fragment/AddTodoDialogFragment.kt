@@ -51,7 +51,7 @@ class AddTodoDialogFragment : BottomSheetDialogFragment() {
         binding.buttonLeft.setOnClickListener { dismiss() }
 
         binding.buttonSave.setOnClickListener {
-            if (!binding.editTextTitle.text.isNullOrEmpty()){
+            if (!binding.editTextTitle.text.isNullOrEmpty()) {
                 val todoTitle = binding.editTextTitle.text.toString()
                 val todoNote = binding.editTextNote.text.toString()
                 addTodo(todoTitle, todoNote)
@@ -96,6 +96,7 @@ class AddTodoDialogFragment : BottomSheetDialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        requireActivity().findViewById<ExtendedFloatingActionButton>(R.id.floating_action_button).show()
+        requireActivity().findViewById<ExtendedFloatingActionButton>(R.id.floating_action_button)
+            .show()
     }
 }

@@ -13,8 +13,10 @@ class CleanEditText(
 ) : AppCompatEditText(context, attrs) {
 
     override fun onCreateInputConnection(outAttrs: EditorInfo): InputConnection? {
-        setRawInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE or
-                InputType.TYPE_TEXT_FLAG_AUTO_CORRECT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
+        setRawInputType(
+            InputType.TYPE_TEXT_FLAG_MULTI_LINE or
+                    InputType.TYPE_TEXT_FLAG_AUTO_CORRECT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+        )
         return super.onCreateInputConnection(outAttrs)
     }
 }

@@ -14,8 +14,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fr.yashubeta.tododot.MainActivity
 import fr.yashubeta.tododot.MainViewModel
 import fr.yashubeta.tododot.R
-import fr.yashubeta.tododot.fragment.TodoDialogFragment
 import fr.yashubeta.tododot.database.Todo
+import fr.yashubeta.tododot.fragment.TodoDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ private const val ITEM_VIEW_TYPE_CHECKED = 2
 class MainAdapter(
     private val activity: MainActivity,
     private val viewModel: MainViewModel
-): ListAdapter<DataItem, RecyclerView.ViewHolder>(ItemDiffCallBack) {
+) : ListAdapter<DataItem, RecyclerView.ViewHolder>(ItemDiffCallBack) {
 
     var tracker: SelectionTracker<Long>? = null
     private var adapterRecyclerView: RecyclerView? = null
@@ -51,10 +51,12 @@ class MainAdapter(
         super.onAttachedToRecyclerView(recyclerView)
     }
 
-    override fun getItemId(position: Int): Long { return currentList[position].id }
+    override fun getItemId(position: Int): Long {
+        return currentList[position].id
+    }
 
     override fun getItemViewType(position: Int): Int {
-        return when(val item = getItem(position)) {
+        return when (val item = getItem(position)) {
             is DataItem.Section -> ITEM_VIEW_TYPE_SECTION
             is DataItem.TodoItem -> {
                 if (item.isChecked) ITEM_VIEW_TYPE_CHECKED
@@ -90,7 +92,7 @@ class MainAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, holderPosition: Int) {
         val item = getItem(holderPosition)
         //holder.itemView.isActivated = tracker?.isSelected(item.id) ?: false
-        when(holder) {
+        when (holder) {
             is SectionViewHolder -> {
 
             }
@@ -104,7 +106,7 @@ class MainAdapter(
                         .show(activity.supportFragmentManager, "dialog")
                 }
 
-                when(getItemViewType(holderPosition)) {
+                when (getItemViewType(holderPosition)) {
                     ITEM_VIEW_TYPE_UNCHECKED -> {
                         holder.bind(item.todo, clickListener)
                         tracker?.let {
@@ -164,13 +166,14 @@ class MainAdapter(
         }
     }
 
-    private val sectionedList: List<DataItem> get() {
-        return if (isCheckedTodosVisible) {
-            uncheckedList + sectionItem + checkedList
-        } else {
-            uncheckedList + sectionItem
+    private val sectionedList: List<DataItem>
+        get() {
+            return if (isCheckedTodosVisible) {
+                uncheckedList + sectionItem + checkedList
+            } else {
+                uncheckedList + sectionItem
+            }
         }
-    }
 
     private fun showDeleteCheckedTodosDialog() {
         MaterialAlertDialogBuilder(activity)
@@ -182,13 +185,14 @@ class MainAdapter(
             .show()
     }
 
-    fun List<DataItem>.mapToTodo() : List<Todo> {
+    fun List<DataItem>.mapToTodo(): List<Todo> {
         return this.mapNotNull { if (it is DataItem.TodoItem) it.todo else null }
     }
 
     private fun setSectionCheckedTodoNumber() {
         val section = adapterRecyclerView?.findViewHolderForAdapterPosition(
-            currentList.indexOf(sectionItem)) as? SectionViewHolder
+            currentList.indexOf(sectionItem)
+        ) as? SectionViewHolder
         section?.binding?.textViewCheckedNumber?.text = checkedList.size.toString()
     }
 
@@ -203,8 +207,9 @@ class MainAdapter(
     }
 
     private val itemTouchHelper by lazy {
-        val itemTouchCallback = object: ItemTouchHelper.SimpleCallback(
-            UP or DOWN, 0) {
+        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
+            UP or DOWN, 0
+        ) {
             override fun getMovementFlags(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder
@@ -267,11 +272,11 @@ class MainAdapter(
 sealed class DataItem {
     abstract val id: Long
 
-    object Section: DataItem() {
+    object Section : DataItem() {
         override val id = Long.MIN_VALUE
     }
 
-    data class TodoItem(val todo: Todo, val isChecked: Boolean = false): DataItem() {
+    data class TodoItem(val todo: Todo, val isChecked: Boolean = false) : DataItem() {
         override val id = todo.todoId.toLong()
     }
 }
