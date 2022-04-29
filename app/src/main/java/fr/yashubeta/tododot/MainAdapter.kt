@@ -89,7 +89,7 @@ class MainAdapter(
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         itemTouchHelper.attachToRecyclerView(recyclerView)
-        recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
+        //recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
         adapterRecyclerView = recyclerView
         super.onAttachedToRecyclerView(recyclerView)
     }
@@ -220,7 +220,7 @@ class MainAdapter(
             .setTitle(activity.resources.getString(R.string.dialog_delete_checked_todos_title))
             .setNegativeButton(activity.resources.getString(android.R.string.cancel)) { _, _ -> }
             .setPositiveButton(activity.resources.getString(android.R.string.ok)) { _, _ ->
-                viewModel.deleteTodos(checkedList.map { it.todo })
+                viewModel.deleteTodos(checkedList.mapToTodo())
             }
             .show()
     }
@@ -300,10 +300,7 @@ class MainAdapter(
                 super.clearView(recyclerView, holder)
                 // TODO: Find another way to disable the range selection
                 tracker?.endRange()
-                val newList = currentList.mapNotNull { //(it as? DataItem.TodoItem)?.todo
-                    if (it is DataItem.TodoItem) it.todo else null
-                }
-                viewModel.updateTodos(newList)
+                viewModel.updateTodos(currentList.mapToTodo())
             }
         }
         ItemTouchHelper(itemTouchCallback)
