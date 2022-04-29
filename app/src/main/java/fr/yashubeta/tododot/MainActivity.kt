@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         adapter.tracker?.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onItemStateChanged(key: Long, selected: Boolean) {
                 super.onItemStateChanged(key, selected)
-                binding.views.root.findViewHolderForItemId(key)?.itemView?.isActivated = selected
+                //binding.views.root.findViewHolderForItemId(key)?.itemView?.isActivated = selected
 
                 val newList = adapter.currentList.mapNotNull { (it as? DataItem.TodoItem)?.todo }
                 val item = newList.find { it.todoId == key.toInt() }

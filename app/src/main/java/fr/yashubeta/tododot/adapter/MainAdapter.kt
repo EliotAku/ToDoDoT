@@ -91,7 +91,7 @@ class MainAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, holderPosition: Int) {
         val item = getItem(holderPosition)
-        //holder.itemView.isActivated = tracker?.isSelected(item.id) ?: false
+        holder.itemView.isActivated = tracker?.isSelected(item.id) ?: false
         when (holder) {
             is SectionViewHolder -> {
 
