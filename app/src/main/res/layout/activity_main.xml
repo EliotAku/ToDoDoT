@@ -16,7 +16,6 @@
             android:id="@+id/collapsing_tool_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:titleCollapseMode="scale"
             app:expandedTitleTextAppearance="@style/TextAppearance.Material3.HeadlineLarge"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
@@ -42,7 +41,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/spacing_large"
         android:text="@string/fab_add_task"
-        app:icon="@drawable/ic_add"
-        app:srcCompat="@drawable/ic_add" />
+        app:icon="@drawable/ic_add"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
