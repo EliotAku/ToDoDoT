@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper.DOWN
 import androidx.recyclerview.widget.ItemTouchHelper.UP
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fr.yashubeta.tododot.MainActivity
 import fr.yashubeta.tododot.MainViewModel
@@ -99,6 +100,8 @@ class MainAdapter(
             is TodoViewHolder -> {
                 if (item !is DataItem.TodoItem) return
                 holder.isChecked = getItemViewType(holderPosition) == ITEM_VIEW_TYPE_CHECKED
+                (holder.itemView as MaterialCardView).strokeWidth =
+                    if (holder.itemView.isActivated) 6 else 0
 
                 val clickListener = View.OnClickListener {
                     // TODO: À déplacer dans MainActivity
