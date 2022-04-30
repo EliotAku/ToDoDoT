@@ -100,8 +100,8 @@ class MainAdapter(
             is TodoViewHolder -> {
                 if (item !is DataItem.TodoItem) return
                 holder.isChecked = getItemViewType(holderPosition) == ITEM_VIEW_TYPE_CHECKED
-                (holder.itemView as MaterialCardView).strokeWidth =
-                    if (holder.itemView.isActivated) 6 else 0
+                val cardView = holder.itemView.findViewById<MaterialCardView>(R.id.card_view_item)
+                cardView.strokeWidth = if (holder.itemView.isActivated) 6 else 0
 
                 val clickListener = View.OnClickListener {
                     // TODO: À déplacer dans MainActivity
@@ -112,9 +112,6 @@ class MainAdapter(
                 when (getItemViewType(holderPosition)) {
                     ITEM_VIEW_TYPE_UNCHECKED -> {
                         holder.bind(item.todo, clickListener)
-                        tracker?.let {
-
-                        }
                         if (item.todo.position != holderPosition)
                             viewModel.updateTodo(item.todo.apply {
                                 position = holderPosition
