@@ -3,7 +3,14 @@
 
     <item
         android:id="@+id/action_delete"
-        android:title="Delete Selection"
-        android:icon="@drawable/ic_trash" />
+        android:title="Delete Selected"
+        android:icon="@drawable/ic_trash"
+        />
+
+    <item
+        android:id="@+id/action_check"
+        android:title="Check Selected"
+        android:icon="@drawable/ic_check_circle_checked"
+        />
 
 </menu>
