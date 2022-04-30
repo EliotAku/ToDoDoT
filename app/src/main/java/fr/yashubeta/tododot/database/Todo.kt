@@ -10,5 +10,6 @@ data class Todo(
     var position: Int = 0,
     var title: String,
     var note: String?,
-    var isChecked: Boolean = false
+    var isChecked: Boolean = false,
+    var parentId: Int? = null
 )
