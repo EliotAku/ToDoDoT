@@ -3,11 +3,11 @@ package fr.yashubeta.tododot.adapter
 import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.updatePadding
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.ItemTouchHelper.DOWN
-import androidx.recyclerview.widget.ItemTouchHelper.UP
+import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
+import kotlin.math.roundToInt
 
 private const val ITEM_VIEW_TYPE_SECTION = 0
 private const val ITEM_VIEW_TYPE_UNCHECKED = 1
@@ -100,8 +101,17 @@ class MainAdapter(
             is TodoViewHolder -> {
                 if (item !is DataItem.TodoItem) return
                 holder.isChecked = getItemViewType(holderPosition) == ITEM_VIEW_TYPE_CHECKED
+
                 val cardView = holder.itemView.findViewById<MaterialCardView>(R.id.card_view_item)
                 cardView.strokeWidth = if (holder.itemView.isActivated) 6 else 0
+
+                holder.itemView.updatePadding(left =
+                    if (item.todo.parentId != null) {
+                        intToDp(32)
+                    } else {
+                        intToDp(16)
+                    }
+                )
 
                 val clickListener = View.OnClickListener {
                     // TODO: À déplacer dans MainActivity
@@ -135,6 +145,11 @@ class MainAdapter(
                 }
             }
         }
+    }
+
+    private fun intToDp(dp: Int): Int {
+        val density: Float = activity.resources.displayMetrics.density
+        return (dp.toFloat() * density).roundToInt()
     }
 
     fun submitTodoList(allTodos: List<Todo>) {
@@ -208,7 +223,7 @@ class MainAdapter(
 
     private val itemTouchHelper by lazy {
         val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
-            UP or DOWN, 0
+            UP or DOWN, LEFT or RIGHT
         ) {
             override fun getMovementFlags(
                 recyclerView: RecyclerView,
@@ -219,7 +234,7 @@ class MainAdapter(
                     .bindingAdapterPosition < sectionIndex || sectionIndex < 0
                 return makeMovementFlags(
                     if (viewHolder is TodoViewHolder && isCheckedItem) UP or DOWN else 0,
-                    0
+                    if (viewHolder is TodoViewHolder && isCheckedItem) LEFT or RIGHT else 0
                 )
             }
 
@@ -255,6 +270,18 @@ class MainAdapter(
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                if (direction == RIGHT) {
+                    val item = currentList[viewHolder.bindingAdapterPosition]
+                    if (item !is DataItem.TodoItem) return
+                    val aboveTodo: Todo? = (currentList.getOrNull(
+                        currentList.indexOf(item) - 1
+                    ) as? DataItem.TodoItem)?.todo
+                    val aboveId = aboveTodo?.parentId ?: aboveTodo?.todoId
+                    val newParentId: Int? =
+                        if (item.todo.parentId == null) aboveId ?: 0 else null
+                    viewModel.updateTodo(item.todo.apply {parentId = newParentId })
+                }
+                notifyItemChanged(viewHolder.bindingAdapterPosition)
             }
 
             @SuppressLint("RestrictedApi")
