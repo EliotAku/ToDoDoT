@@ -1,11 +1,4 @@
 <div id="top"></div>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
 
 
 
@@ -17,12 +10,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-<!-- [![Contributors][contributors-shield]][contributors-url] -->
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -72,12 +59,16 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-<div  >
-<a href="https://github.com/EliotAku/ToDoDoT">
-    <img src="screenshots/img_main.jpg" alt="Screenshot" width="200">
-</a>
+<div>
+  <details>
+    <summary>Screenshots</summary>
+    <a href="https://github.com/EliotAku/ToDoDoT">
+        <img src="screenshots/img_main.jpg" alt="Screenshot - Home Page" width="200">
+    </a>
+  </details>
   
-<p>(It's my first app)</p>
+  <p>(It's my first app)</p>
+
 </div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -99,7 +90,7 @@
 - [x] Add, remove, & modify tasks
 - [x] Reordering tasks
 - [x] Delete all checked tasks
-- [ ] Select tasks and delete them
+- [x] Select tasks and delete them
 - [ ] Add subtasks
 - [ ] Multi-language Support
     - [x] English
@@ -151,16 +142,4 @@ Use this space to list resources you find helpful and would like to give credit 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/EliotAku/ToDoDoT.svg?style=flat
-[contributors-url]: https://github.com/EliotAku/ToDoDoT/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/EliotAku/ToDoDoT.svg?style=flat
-[forks-url]: https://github.com/EliotAku/ToDoDoT/network/members
-[stars-shield]: https://img.shields.io/github/stars/EliotAku/ToDoDoT.svg?style=flat
-[stars-url]: https://github.com/EliotAku/ToDoDoT/stargazers
-[issues-shield]: https://img.shields.io/github/issues/EliotAku/ToDoDoT.svg?style=flat
-[issues-url]: https://github.com/EliotAku/ToDoDoT/issues
-[license-shield]: https://img.shields.io/github/license/EliotAku/ToDoDoT.svg?style=flat
-[license-url]: https://github.com/EliotAku/ToDoDoT/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/
 [product-screenshot]: screenshots/img_main.jpg
