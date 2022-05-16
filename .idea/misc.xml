@@ -25,18 +25,22 @@
         <entry key="app/src/main/res/layout/content_new.xml" value="0.2453125" />
         <entry key="app/src/main/res/layout/fragment_add_todo_dialog_list_dialog.xml" value="0.1828774062816616" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_add_todo.xml" value="0.20705521472392638" />
+        <entry key="app/src/main/res/layout/fragment_bottom_sheet_more.xml" value="0.20729166666666668" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet_todo.xml" value="0.3176229508196721" />
         <entry key="app/src/main/res/layout/fragment_modal_bottom_sheet_add_todo.xml" value="0.4005410014719203" />
+        <entry key="app/src/main/res/layout/fragment_preferences.xml" value="0.40301767985026044" />
         <entry key="app/src/main/res/layout/item_section.xml" value="0.28020833333333334" />
         <entry key="app/src/main/res/layout/item_todo.xml" value="0.1944792973651192" />
         <entry key="app/src/main/res/layout/recycler_view_checked.xml" value="0.2453125" />
         <entry key="app/src/main/res/layout/recycler_view_unchecked.xml" value="0.2453125" />
         <entry key="app/src/main/res/layout/view_bottom_sheet_handle.xml" value="0.5265584088753963" />
+        <entry key="app/src/main/res/menu/main_menu.xml" value="0.20729166666666668" />
         <entry key="app/src/main/res/menu/selection_menu.xml" value="0.21770833333333334" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="app/src/main/res/xml/animator_rotation.xml" value="0.17592592592592593" />
         <entry key="app/src/main/res/xml/checkbox_selector.xml" value="0.13858695652173914" />
+        <entry key="app/src/main/res/xml/preferences.xml" value="0.20729166666666668" />
       </map>
     </option>
   </component>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="100dp"
+    android:paddingHorizontal="@dimen/spacing_medium"
+    android:paddingBottom="@dimen/spacing_large"
+    android:orientation="vertical"
+    tools:context=".fragment.AddTodoDialogFragment">
+
+    <include
+        android:id="@+id/handle"
+        layout="@layout/view_bottom_sheet_handle" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

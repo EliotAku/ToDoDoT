@@ -152,13 +152,15 @@ class MainAdapter(
         return (dp.toFloat() * density).roundToInt()
     }
 
-    fun submitTodoList(allTodos: List<Todo>) {
+    fun submitTodoList(allTodos: List<Todo>, showSub: Boolean = true) {
         val checkedTodosIndex = allTodos.indexOfFirst { it.isChecked }
         CoroutineScope(Dispatchers.IO).launch {
             if (checkedTodosIndex < 0) {
                 val unchecked: List<DataItem.TodoItem> = allTodos
                     .sortedBy { it.position }
-                    .map { DataItem.TodoItem(it) }
+                    .mapNotNull {
+                        if (showSub || it.parentId == null) DataItem.TodoItem(it) else null
+                    }
                 uncheckedList = unchecked
 
                 withContext(Dispatchers.Main) { this@MainAdapter.submitList(uncheckedList) }

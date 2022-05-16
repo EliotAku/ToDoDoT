@@ -12,5 +12,7 @@
     <string name="massage_no_todos">You don\'t have any todos!</string>
 
     <string name="dialog_delete_checked_todos_title">Delete all completed tasks?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

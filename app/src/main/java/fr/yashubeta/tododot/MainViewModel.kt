@@ -1,15 +1,17 @@
 package fr.yashubeta.tododot
 
-import android.app.Application
 import androidx.lifecycle.*
-import fr.yashubeta.tododot.database.AppDatabase
 import fr.yashubeta.tododot.database.Todo
 import fr.yashubeta.tododot.database.TodoRepository
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(
+    private val repo: TodoRepository,
+    userPrefRepo: UserPreferencesRepository
+) : ViewModel() {
 
-    private val repo = TodoRepository(AppDatabase.getDatabase(application).todoDao())
+    //private val repo = TodoRepository(AppDatabase.getDatabase(application).todoDao())
 
     private val vms = viewModelScope
 
@@ -40,12 +42,42 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // --> Get
-    fun allTodosByIsChecked(): LiveData<List<Todo>> = repo.allTodosByIsChecked().asLiveData()
-    fun uncheckedTodos(): LiveData<List<Todo>> = repo.uncheckedTodos().asLiveData()
-    fun checkedTodos(): LiveData<List<Todo>> = repo.checkedTodos().asLiveData()
+    //fun allTodosByIsChecked(): LiveData<List<Todo>> = repo.allTodosByIsChecked().asLiveData()
+    //fun uncheckedTodos(): LiveData<List<Todo>> = repo.uncheckedTodos().asLiveData()
+    //fun checkedTodos(): LiveData<List<Todo>> = repo.checkedTodos().asLiveData()
 
     @Suppress("RedundantNullableReturnType")
     suspend fun getHighestPosition(): Int? = repo.getHighestPosition()
 
     val deletedTodo: MutableLiveData<Todo> by lazy { MutableLiveData<Todo>() }
+
+    private val todosUiModelFlow = combine(
+        repo.allTodosByIsChecked(),
+        userPrefRepo.userPreferencesFlow
+    ) { todos: List<Todo>, userPreferences: UserPreferences ->
+        return@combine TodoUiModel(
+            todos = todos,
+            showSubTasks = userPreferences.showSubTasks
+        )
+    }
+    val todosUiModel = todosUiModelFlow.asLiveData()
 }
+
+class MainViewModelFactory(
+    private val repository: TodoRepository,
+    private val userPreferencesRepository: UserPreferencesRepository
+) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return MainViewModel(repository, userPreferencesRepository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+data class TodoUiModel(
+    val todos: List<Todo>,
+    val showSubTasks: Boolean
+)

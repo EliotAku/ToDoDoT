@@ -1,5 +1,6 @@
 package fr.yashubeta.tododot
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -12,6 +13,7 @@ import androidx.core.view.doOnLayout
 import androidx.core.view.marginBottom
 import androidx.core.view.marginTop
 import androidx.core.view.updatePadding
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -22,10 +24,16 @@ import fr.yashubeta.tododot.adapter.DataItem
 import fr.yashubeta.tododot.adapter.MainAdapter
 import fr.yashubeta.tododot.adapter.MyItemDetailsLookup
 import fr.yashubeta.tododot.adapter.MyItemKeyProvider
+import fr.yashubeta.tododot.database.AppDatabase
 import fr.yashubeta.tododot.database.Todo
+import fr.yashubeta.tododot.database.TodoRepository
 import fr.yashubeta.tododot.databinding.ActivityMainBinding
 import fr.yashubeta.tododot.fragment.AddTodoDialogFragment
+import fr.yashubeta.tododot.fragment.MoreDialogFragment
 
+private const val USER_PREFERENCES_NAME = "user_preferences"
+
+private val Context.dataStore by preferencesDataStore(name = USER_PREFERENCES_NAME)
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,7 +54,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            MainViewModelFactory(
+                TodoRepository(AppDatabase.getDatabase(application).todoDao()),
+                UserPreferencesRepository(dataStore)
+            )
+        )[MainViewModel::class.java]
 
         setSupportActionBar(binding.toolBar)
 
@@ -129,15 +143,37 @@ class MainActivity : AppCompatActivity() {
             AddTodoDialogFragment.newInstance(30).show(supportFragmentManager, "dialog")
         }
 
-        viewModel.allTodosByIsChecked().observe(this) { allTodos ->
+        /*viewModel.allTodosByIsChecked().observe(this) { allTodos ->
             if (allTodos.isNullOrEmpty()) return@observe
-            adapter.submitTodoList(allTodos)
-        }
+            adapter.submitTodoList(allTodos, showSubTasks)
+        }*/
 
         viewModel.deletedTodo.observe(this) { deletedTodo ->
             Snackbar.make(binding.floatingActionButton, "Task deleted!", Snackbar.LENGTH_LONG)
                 .setAction(R.string.all_undo) { viewModel.insertTodo(deletedTodo) }
                 .show()
+        }
+
+        viewModel.todosUiModel.observe(this) {
+            if (it.todos.isNullOrEmpty()) return@observe
+            adapter.submitTodoList(it.todos, it.showSubTasks)
+        }
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.more_action -> {
+                MoreDialogFragment(UserPreferencesRepository(dataStore))
+                    .show(supportFragmentManager, "dialog")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
