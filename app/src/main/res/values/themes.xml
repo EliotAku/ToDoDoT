@@ -9,6 +9,7 @@
         <item name="bottomSheetDialogTheme">@style/ModalBottomSheetDialog</item>
         <item name="editTextStyle">@style/View.App.EditText</item>
         <item name="imageButtonStyle">@style/Widget.App.ImageButton</item>
+        <item name="switchStyle">@style/Switch.SettingsLib</item>
     </style>
 
     <style name="Theme.ToDoDot.Starting" parent="Theme.SplashScreen">

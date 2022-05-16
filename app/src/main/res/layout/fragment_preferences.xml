@@ -29,7 +29,7 @@
             android:gravity="center_vertical"
             android:text="Show sub-tasks" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/pref_switch"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

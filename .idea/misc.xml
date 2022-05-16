@@ -19,6 +19,8 @@
         <entry key="app/src/main/res/drawable/selectable_item_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/selector_checkbox_circle.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/shape_rounded.xml" value="0.183" />
+        <entry key="app/src/main/res/drawable/switch_thumb.xml" value="0.2065" />
+        <entry key="app/src/main/res/drawable/switch_track.xml" value="0.2065" />
         <entry key="app/src/main/res/layout-night/view_bottom_sheet_handle.xml" value="1.9858713785807294" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.31768035888671875" />
