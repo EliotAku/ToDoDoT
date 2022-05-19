@@ -35,7 +35,7 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 
 Distributed under « NO LICENSE ». See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<!-- <p align="right">(<a href="#top">back to top</a>)</p> -->
 
 
 
