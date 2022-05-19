@@ -20,7 +20,7 @@
 <!-- ABOUT THE PROJECT -->
 #
 
-This project is my first app, I use it to learn how to dev!
+This project is my first app, I use it to learn Android development!
 
 | | | | |
 |:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
