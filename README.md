@@ -1,7 +1,3 @@
-<div id="top"></div>
-
-
-
 <!-- PROJECT LOGO -->
 
 <img src="https://github.com/EliotAku/ToDoDoT/blob/master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" alt="Logo" align="right">
@@ -67,7 +63,7 @@ Use this space to list resources you find helpful and would like to give credit 
 * [Img Shields](https://shields.io)
 * [GitHub Pages](https://pages.github.com)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#README.md">back to top</a>)</p>
 -->
 
 
