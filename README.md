@@ -2,85 +2,19 @@
 
 
 
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
-
-
 <!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/EliotAku/ToDoDoT">
-    <img src="https://github.com/EliotAku/ToDoDoT/blob/master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" alt="Logo">
-  </a>
 
-  <h3 align="center">ToDoDoT</h3>
-
-  <p align="center">
-    A simple to-do app!
-    <br />
-    <a href="https://github.com/EliotAku/ToDoDoT"><strong>See Wiki</strong></a>
-    •
-    <a href="https://github.com/EliotAku/ToDoDoT/issues">Report Bug</a>
-    •
-    <a href="https://github.com/EliotAku/ToDoDoT/issues">Request Feature</a>
-  </p>
-</div>
-
-
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#license">License</a></li>
-    <!-- <li><a href="#contact">Contact</a></li> -->
-    <!-- <li><a href="#acknowledgments">Some Projects I Like</a></li> -->
-  </ol>
-</details>
-
-
+<img src="https://github.com/EliotAku/ToDoDoT/blob/master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" alt="Logo" align="right">
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+# ToDoDoT
+> A simple to-do app!
 
-<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+This project is my first app, I use it to learn how to dev!
 
-<div>
-  <details>
-    <summary>Screenshots</summary>
-    <a href="https://github.com/EliotAku/ToDoDoT">
-        <img src="screenshots/img_main.jpg" alt="Screenshot - Home Page" width="200">
-    </a>
-  </details>
-  
-  <p>(It's my first app)</p>
-
-</div>
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-### Built With
-
-* [Kotlin](https://kotlinlang.org/)
-* [Room](https://developer.android.com/training/data-storage/room)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
+| | | | |
+|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
+![Home Screen][img-home] | ![Add Sheet][img-add] | ![Opened Task Sheet][img-opened] | ![Settings Screen][img-settings]
 
 
 
@@ -97,8 +31,6 @@
     - [ ] French
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
@@ -143,3 +75,7 @@ Use this space to list resources you find helpful and would like to give credit 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [product-screenshot]: screenshots/img_main.jpg
+[img-home]: screenshots/img_main.jpg
+[img-add]: screenshots/Screenshot_2022-05-19-03-04-06-30_90b82d52328ab66f57d73c7d4deef801.jpg
+[img-opened]: screenshots/Screenshot_2022-05-19-03-04-46-93_90b82d52328ab66f57d73c7d4deef801.jpg
+[img-settings]: screenshots/Screenshot_2022-05-19-03-05-02-09_90b82d52328ab66f57d73c7d4deef801.jpg
