@@ -1,10 +1,24 @@
 <!-- PROJECT LOGO -->
 
-<img src="https://github.com/EliotAku/ToDoDoT/blob/master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" alt="Logo" align="right">
+<br />
+<div align="center">
+  <a href="https://github.com/EliotAku/ToDoDoT">
+    <img src="https://github.com/EliotAku/ToDoDoT/blob/master/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" alt="Logo">
+  </a>
+  <h3 align="center">ToDoDoT</h3>
+  <p align="center">
+    A simple to-do app!
+    <br />
+    <a href="https://github.com/EliotAku/ToDoDoT"><strong>See Wiki</strong></a>
+    •
+    <a href="https://github.com/EliotAku/ToDoDoT/issues">Report Bug</a>
+    •
+    <a href="https://github.com/EliotAku/ToDoDoT/issues">Request Feature</a>
+  </p>
+</div>
 
 <!-- ABOUT THE PROJECT -->
-# ToDoDoT
-> A simple to-do app!
+#
 
 This project is my first app, I use it to learn how to dev!
 
