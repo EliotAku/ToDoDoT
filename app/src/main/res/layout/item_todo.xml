@@ -22,12 +22,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <fr.yashubeta.tododot.view.CheckCircle
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/check_box"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:padding="@dimen/spacing_medium"
-                style="@style/Widget.ToDoDoT.CheckCircle"/>
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:button="@drawable/selector_checkbox_circle"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
