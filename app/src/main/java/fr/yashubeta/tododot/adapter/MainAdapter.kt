@@ -100,49 +100,40 @@ class MainAdapter(
             }
             is TodoViewHolder -> {
                 if (item !is DataItem.TodoItem) return
-                holder.isChecked = getItemViewType(holderPosition) == ITEM_VIEW_TYPE_CHECKED
+                //holder.isChecked = getItemViewType(holderPosition) == ITEM_VIEW_TYPE_CHECKED
+                val clickListener = View.OnClickListener {
+                    // TODO: À déplacer dans MainActivity
+                    TodoDialogFragment(viewModel, item.todo)
+                        .show(activity.supportFragmentManager, "BottomSheet")
+                }
+
+                /*if (item.to/do.parentId != null) {
+                    item.to/do.parentId?.let {
+                        val parent = currentList.mapToTodo().firstOrNull {
+                            it.todoId == item.to/do.parentId
+                        }
+                        if (parent != null) {
+                            if (parent.position > item.to/do.position) item.to/do.parentId = null
+                        } else item.to/do.parentId = null
+                        updateTodoInDb(item.to/do)
+                    }
+                }*/
 
                 val cardView = holder.itemView.findViewById<MaterialCardView>(R.id.card_view_item)
                 cardView.strokeWidth = if (holder.itemView.isActivated) 6 else 0
 
-                holder.itemView.updatePadding(left =
-                    if (item.todo.parentId != null) {
-                        intToDp(32)
-                    } else {
-                        intToDp(16)
-                    }
+                holder.itemView.updatePadding(
+                    left = if (item.todo.parentId != null) intToDp(32) else intToDp(16)
                 )
-
-                val clickListener = View.OnClickListener {
-                    // TODO: À déplacer dans MainActivity
-                    TodoDialogFragment(viewModel, item.todo)
-                        .show(activity.supportFragmentManager, "dialog")
-                }
-
-                when (getItemViewType(holderPosition)) {
-                    ITEM_VIEW_TYPE_UNCHECKED -> {
-                        holder.bind(item.todo, clickListener)
-                        if (item.todo.position != holderPosition)
-                            viewModel.updateTodo(item.todo.apply {
-                                position = holderPosition
-                            })
-
-                    }
-                    ITEM_VIEW_TYPE_CHECKED -> {
-                        holder.bind(item.todo, clickListener)
-                        if (item.todo.position != holderPosition - 1)
-                            viewModel.updateTodo(item.todo.apply {
-                                position = holderPosition - 1
-                            })
-                    }
-                }
 
                 holder.binding.checkBox.setOnClickListener {
                     viewModel.updateTodo(item.todo.apply {
-                        position = if (isChecked) 9999 else -1
+                        position = if (item.isChecked) 9999 else -1
                         isChecked = !isChecked
                     })
                 }
+
+                holder.bind(item.todo, clickListener)
             }
         }
     }
@@ -156,27 +147,61 @@ class MainAdapter(
         val checkedTodosIndex = allTodos.indexOfFirst { it.isChecked }
         CoroutineScope(Dispatchers.IO).launch {
             if (checkedTodosIndex < 0) {
-                val unchecked: List<DataItem.TodoItem> = allTodos
-                    .sortedBy { it.position }
-                    .mapNotNull {
-                        if (showSub || it.parentId == null) DataItem.TodoItem(it) else null
-                    }
-                uncheckedList = unchecked
+                var needToUpdate = false
+                val rawUnchecked = allTodos.sortedBy { it.position }
 
+                val unchecked = rawUnchecked.mapNotNull { todo ->
+                    if (showSub || todo.parentId == null) {
+                        val index = rawUnchecked.indexOf(todo)
+                        if (todo.position == index) {
+                            DataItem.TodoItem(todo)
+                        } else {
+                            todo.position = index
+                            needToUpdate = true
+                            DataItem.TodoItem(todo)
+                        }
+                    } else null
+                }
+                uncheckedList = unchecked
+                checkedList = emptyList()
+
+                if (needToUpdate) viewModel.updateTodos(sectionedList.mapToTodo())
                 withContext(Dispatchers.Main) { this@MainAdapter.submitList(uncheckedList) }
             } else {
-                val unchecked = allTodos
+                var needToUpdate = false
+                val rawUnchecked = allTodos
                     .subList(0, checkedTodosIndex)
                     .sortedBy { it.position }
-                    .map { DataItem.TodoItem(it) }
-                uncheckedList = unchecked
-
-                val checked = allTodos
+                val rawChecked = allTodos
                     .subList(checkedTodosIndex, allTodos.size)
                     .sortedBy { it.position }
-                    .map { DataItem.TodoItem(it, isChecked = true) }
+                val resolvedList = rawUnchecked + rawChecked
+
+                val unchecked = rawUnchecked.map { todo ->
+                    val index = resolvedList.indexOf(todo)
+                    if (todo.position == index) {
+                        DataItem.TodoItem(todo)
+                    } else {
+                        todo.position = index
+                        needToUpdate = true
+                        DataItem.TodoItem(todo)
+                    }
+                }
+                uncheckedList = unchecked
+
+                val checked = rawChecked.map { todo ->
+                    val index = resolvedList.indexOf(todo)
+                    if (todo.position == index) {
+                        DataItem.TodoItem(todo, isChecked = true)
+                    } else {
+                        todo.position = index
+                        needToUpdate = true
+                        DataItem.TodoItem(todo, isChecked = true)
+                    }
+                }
                 checkedList = checked
 
+                if (needToUpdate) viewModel.updateTodos((rawUnchecked + rawChecked))
                 withContext(Dispatchers.Main) { this@MainAdapter.submitList(sectionedList) }
             }
             withContext(Dispatchers.Main) { setSectionCheckedTodoNumber() }
