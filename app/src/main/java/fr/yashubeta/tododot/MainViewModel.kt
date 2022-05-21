@@ -42,6 +42,7 @@ class MainViewModel(
     }
 
     // --> Get
+    fun getTodoChildren(parentId: Int): LiveData<List<Todo>> = repo.getTodoChildren(parentId).asLiveData()
     //fun allTodosByIsChecked(): LiveData<List<Todo>> = repo.allTodosByIsChecked().asLiveData()
     //fun uncheckedTodos(): LiveData<List<Todo>> = repo.uncheckedTodos().asLiveData()
     //fun checkedTodos(): LiveData<List<Todo>> = repo.checkedTodos().asLiveData()

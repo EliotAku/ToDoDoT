@@ -28,6 +28,7 @@ class TodoRepository(private val todoDao: TodoDao) {
 
     // --> Get
     fun allTodosByIsChecked(): Flow<List<Todo>> = todoDao.getTodosByIsChecked()
+    fun getTodoChildren(parentId: Int): Flow<List<Todo>> = todoDao.getTodoChildren(parentId)
     fun uncheckedTodos(): Flow<List<Todo>> = todoDao.getUncheckedTodos()
     fun checkedTodos(): Flow<List<Todo>> = todoDao.getCheckedTodos()
     suspend fun getHighestPosition(): Int = todoDao.getHighestPosition()
