@@ -25,8 +25,7 @@ import java.util.*
 import kotlin.math.roundToInt
 
 private const val ITEM_VIEW_TYPE_SECTION = 0
-private const val ITEM_VIEW_TYPE_UNCHECKED = 1
-private const val ITEM_VIEW_TYPE_CHECKED = 2
+private const val ITEM_VIEW_TYPE_TODO = 1
 
 class MainAdapter(
     private val activity: MainActivity,
@@ -58,12 +57,9 @@ class MainAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (val item = getItem(position)) {
+        return when (getItem(position)) {
             is DataItem.Section -> ITEM_VIEW_TYPE_SECTION
-            is DataItem.TodoItem -> {
-                if (item.isChecked) ITEM_VIEW_TYPE_CHECKED
-                else ITEM_VIEW_TYPE_UNCHECKED
-            }
+            is DataItem.TodoItem -> ITEM_VIEW_TYPE_TODO
         }
     }
 
@@ -81,10 +77,7 @@ class MainAdapter(
                     }
                 }
             }
-            ITEM_VIEW_TYPE_UNCHECKED -> {
-                TodoViewHolder.from(parent)
-            }
-            ITEM_VIEW_TYPE_CHECKED -> {
+            ITEM_VIEW_TYPE_TODO -> {
                 TodoViewHolder.from(parent)
             }
             else -> throw ClassCastException("Unknown viewType $viewType")
