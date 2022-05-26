@@ -39,8 +39,8 @@ dependencies {
     // Default
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.6.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'com.google.android.material:material:1.7.0-alpha02'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // LifeCycle
     implementation 'androidx.activity:activity-ktx:1.4.0'
@@ -52,6 +52,7 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.2"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'com.google.android.gms:play-services-wearable:17.1.0'
     kapt "androidx.room:room-compiler:2.4.2"
     // Kotlin components
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21"
@@ -59,7 +60,7 @@ dependencies {
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1-native-mt'
     // Other
     implementation "androidx.datastore:datastore-preferences:1.0.0"
-    implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
+    implementation 'androidx.core:core-splashscreen:1.0.0-rc01'
     implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
     // Test
     testImplementation 'junit:junit:4.13.2'
